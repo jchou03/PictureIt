@@ -141,13 +141,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       'assets/images/busImg.png',
                       width: MediaQuery.of(context).size.width,
                     ),
-                  )
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Image.asset(
+                        'assets/images/Screenshot (437).png',
+                        height: 50,
+                      ),
+                      Text('David'),
+                    ],
+                  ),
+                  Text(
+                      "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!"),
                 ],
               ),
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
             ),
           ],
         ),
