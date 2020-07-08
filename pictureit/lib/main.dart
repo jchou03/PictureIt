@@ -82,6 +82,27 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           // an array of widgets for
           children: <Widget>[
+            // container for displaying the current projects that the user is engaged in
+            Container(
+              // set the width to fill the width of the screen
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.all(globalPadding),
+              margin: EdgeInsets.all(globalMargin),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  color: Colors.white),
+              // the column containing the content
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text('My Projects: '),
+                  Text('SamTrans - Leader'),
+                  Text('Homlessness - Leader'),
+                ],
+              ),
+            ),
+            // content for the posts
             Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(globalPadding),
@@ -89,12 +110,38 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(borderRadius),
                   color: Colors.white),
+              // the column containing the content
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('My Projects: '),
-                  Text('SamTrans - Leader'),
-                  Text('Homlessness - Leader'),
+                  Row(
+                    children: <Widget>[
+                      // the expanded class makes it so the text doesn't run off of the screen
+                      Expanded(
+                          child: Text(
+                              'I am the only one on the Samtrans bus and I have to wait so long for it!')),
+                      // button for joining the project
+                      FlatButton(
+                        color: boxColor,
+                        textColor: arrowColor,
+                        disabledColor: Colors.grey,
+                        disabledTextColor: Colors.black,
+                        padding: EdgeInsets.all(8.0),
+                        splashColor: Colors.blueAccent,
+                        onPressed: () {},
+                        child: Text('Join Project'),
+                      ),
+                    ],
+                  ),
+                  // add a margin to the image so it doesn't go right up to the text
+                  Container(
+                    margin: EdgeInsets.all(globalMargin),
+                    child: Image.asset(
+                      'assets/images/busImg.png',
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                  )
                 ],
               ),
             ),
