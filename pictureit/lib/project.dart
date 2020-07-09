@@ -14,9 +14,9 @@ const borderRadius = 10.0;
 
 // variables for icon changing
 var importantIcon = Icons.favorite_border;
-var importantColor = Colors.blueAccent;
+var importantColor = Colors.black;
 
-class Project extends Widget {
+class Project extends StatelessWidget {
   String title;
   String description;
   String projectLeader;
@@ -40,7 +40,7 @@ class Project extends Widget {
   }
 
   Widget build(BuildContext context) {
-    Container(
+    return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.all(globalPadding),
       margin: EdgeInsets.all(globalMargin),
@@ -94,9 +94,10 @@ class Project extends Widget {
                   icon: Icon(importantIcon),
                   color: importantColor,
                   onPressed: () {
-                    setState(() {
+                    print("pressed");
+/*                    setState(() {
                       if (importantColor == Colors.redAccent) {
-                        importantColor = Colors.blueAccent;
+                        importantColor = Colors.black;
                         importantIcon = Icons.favorite_border;
                         likes--;
                       } else {
@@ -104,7 +105,7 @@ class Project extends Widget {
                         importantIcon = Icons.favorite;
                         likes++;
                       }
-                    });
+                    });*/
                   },
                 )
               ],

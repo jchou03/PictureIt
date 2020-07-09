@@ -1,4 +1,4 @@
-import 'dart:html';
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:pictureit/project.dart';
@@ -114,7 +114,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 "I am the only one on the Samtrans bus and I have to wait so long for it!",
                 "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!",
                 "David",
-                Image.asset("assets/images/Screenshot (437).png"),
+                Image.asset(
+                  "assets/images/Screenshot (437).png",
+                  height: 50,
+                ),
                 Image.asset("assets/images/busImg.png"))
             /*
             // container for the post of Samtrans
