@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/main.dart';
 
 // variable setup for the app
 // color setups
@@ -61,7 +62,11 @@ class Project extends StatelessWidget {
               disabledTextColor: Colors.black,
               padding: EdgeInsets.all(8.0),
               splashColor: Colors.blueAccent,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SecondRoute()));
+                print('pressed button');
+              },
               child: Text('Join Project'),
             ),
           ],
@@ -116,6 +121,28 @@ class Project extends StatelessWidget {
         // description of the project
         Text(description),
       ]),
+    );
+  }
+}
+
+// test class for playing with routes
+class SecondRoute extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Second Route"),
+      ),
+      body: Center(
+        child: RaisedButton(
+          onPressed: () {
+            // Navigate back to first route when tapped.
+            print('button is pressed');
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }

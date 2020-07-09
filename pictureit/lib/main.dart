@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/project.dart';
 
 // variable setup for the app
@@ -27,16 +28,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'PictureIt',
-      theme: ThemeData(
-        primaryColor: headingColor,
-        // This makes the visual density adapt to the platform that you run
-        // the app on. For desktop platforms, the controls will be smaller and
-        // closer together (more dense) than on mobile platforms.
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'PictureIt'),
-    );
+        title: 'PictureIt',
+        //routes: {'/': (context) => MyApp()},
+        theme: ThemeData(
+          primaryColor: headingColor,
+          // This makes the visual density adapt to the platform that you run
+          // the app on. For desktop platforms, the controls will be smaller and
+          // closer together (more dense) than on mobile platforms.
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        //home: MyHomePage(title: 'PictureIt'),
+        home: GettingStarted());
   }
 }
 
