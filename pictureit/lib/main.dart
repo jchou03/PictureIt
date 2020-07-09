@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:pictureit/project.dart';
 
 // variable setup for the app
 // color setups
@@ -10,6 +13,10 @@ const arrowColor = Color(0xFFFFF7BF);
 const globalPadding = 15.0;
 const globalMargin = 15.0;
 const borderRadius = 10.0;
+
+// variables for icon changing
+var importantIcon = Icons.favorite_border;
+var importantColor = Colors.blueAccent;
 
 void main() {
   runApp(MyApp());
@@ -52,16 +59,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _likeCounter = 0;
 
-  void _incrementCounter() {
+  void _incrementLikeCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      _likeCounter++;
     });
   }
 
@@ -102,7 +109,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            // content for the posts
+
+            Project(
+                "I am the only one on the Samtrans bus and I have to wait so long for it!",
+                "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!",
+                "David",
+                Image.asset("assets/images/Screenshot (437).png"),
+                Image.asset("assets/images/busImg.png"))
+            /*
+            // container for the post of Samtrans
             Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.all(globalPadding),
@@ -142,25 +157,60 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: MediaQuery.of(context).size.width,
                     ),
                   ),
+                  // row to display pfp, name, and exclamation points
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Image.asset(
-                        'assets/images/Screenshot (437).png',
-                        height: 50,
+                      // left section of the row
+                      Row(
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/Screenshot (437).png',
+                            height: 50,
+                          ),
+                          Text('David'),
+                        ],
                       ),
-                      Text('David'),
+
+                      // right section of the row showing the exclamation points & stuff
+                      Row(
+                        children: <Widget>[
+                          IconButton(
+                            icon: Icon(importantIcon),
+                            color: importantColor,
+                            onPressed: () {
+                              setState(() {
+                                if (importantColor == Colors.redAccent) {
+                                  importantColor = Colors.blueAccent;
+                                  importantIcon = Icons.favorite_border;
+                                  _likeCounter--;
+                                } else {
+                                  importantColor = Colors.redAccent;
+                                  importantIcon = Icons.favorite;
+                                  _likeCounter++;
+                                }
+                              });
+                            },
+                          ),
+                          Text('$_likeCounter'),
+                          Icon(
+                            Icons.chat_bubble_outline,
+                            size: 24.0,
+                          )
+                        ],
+                      )
                     ],
                   ),
                   Text(
                       "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!"),
                 ],
               ),
-            ),
+            ),*/
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _incrementLikeCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
