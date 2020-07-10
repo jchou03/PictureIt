@@ -15,88 +15,110 @@ const borderRadius = 10.0;
 class Empathy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
+        // appbar is the header
         appBar: AppBar(
           title: Text('PictureIt'),
           backgroundColor: headingColor,
         ),
+        // container for body of page
         body: Container(
             padding: EdgeInsets.all(globalPadding),
             color: backgroundColor,
             width: MediaQuery.of(context).size.width,
+            // listview so it can scroll
             child: ListView(children: <Widget>[
+              // column of content
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
                   Text('Empathy',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
-                  Column(
-                    children: <Widget>[
-                      Text('1) Initial Thoughts',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                          'Reflect on what you already know about the problem.',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                        ' • Worst affected group? ex: Women ages 25-35',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      ),
-                      Text(
-                          ' • Effects of the problem? ex: gas, money, and time wasted',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
-                      Text(
-                          ' • Most frequent time the problem happens? ex: 3pm on weekdays',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
-                    ],
-                  ),
-
-                  // text box for user input
+                  // first round of text (prompt and text box)
                   Container(
-                    color: boxColor,
-                    margin: EdgeInsets.all(globalPadding),
-                    child: TextField(
-                      minLines: 5,
-                      maxLines: 5,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText:
-                              'What do you already know about this problem?'),
-                    ),
-                  ),
+                      margin: EdgeInsets.symmetric(
+                          vertical: globalMargin, horizontal: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '1) Initial Thoughts',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 30,
+                            ),
+                          ),
+                          Text(
+                              'Reflect on what you already know about the problem.',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 22)),
+                          Text(
+                            ' • Worst affected group? ex: Women ages 25-35',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
+                          Text(
+                              ' • Effects of the problem? ex: gas, money, and time wasted',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20)),
+                          Text(
+                              ' • Most frequent time the problem happens? ex: 3pm on weekdays',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20)),
+                          // text box for user input
+                          Container(
+                            color: boxColor,
+                            margin:
+                                EdgeInsets.symmetric(vertical: globalPadding),
+                            child: TextField(
+                              minLines: 5,
+                              maxLines: 5,
+                              autocorrect: true,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText:
+                                      'What do you already know about this problem?'),
+                            ),
+                          ),
+                        ],
+                      )),
 
                   // section for second prompt
-                  Column(
-                    children: <Widget>[
-                      Text('2) Ask affected people about the problem',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                          ' • What have other people noticed about this problem? ',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                        ' • Do they have different points of view on the problem than you do?',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      ),
-                    ],
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Text('2) Ask affected people about the problem',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 30)),
+                        Text(
+                            ' • What have other people noticed about this problem? ',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20)),
+                        Text(
+                            ' • Do they have different points of view on the problem than you do?',
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 20)),
+                        Container(
+                          color: boxColor,
+                          margin: EdgeInsets.symmetric(vertical: globalPadding),
+                          child: TextField(
+                            minLines: 5,
+                            maxLines: 5,
+                            autocorrect: true,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText:
+                                    'What did the other people say about the problem?'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   // second text box
                   // text box for user input
-                  Container(
-                    color: boxColor,
-                    margin: EdgeInsets.all(globalPadding),
-                    child: TextField(
-                      minLines: 5,
-                      maxLines: 5,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText:
-                              'What did the other people say about the problem?'),
-                    ),
-                  ),
+
                   // Button for moving to the next page
                   Container(
-                      margin: EdgeInsets.all(globalMargin),
+                      margin: EdgeInsets.symmetric(vertical: globalMargin),
                       child: RaisedButton(
                           color: boxColor,
                           splashColor: Colors.blueAccent,
