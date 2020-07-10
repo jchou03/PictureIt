@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pictureit/Tools/brainstorming.dart';
+import 'package:pictureit/Tools/gettingStarted.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -13,7 +13,7 @@ const globalPadding = 15.0;
 const globalMargin = 15.0;
 const borderRadius = 10.0;
 
-class Defining extends StatelessWidget {
+class Brainstorming extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -31,7 +31,7 @@ class Defining extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
-                  Text('Defining',
+                  Text('Brainstorming',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
                   // first round of text (prompt and text box)
                   Container(
@@ -44,14 +44,14 @@ class Defining extends StatelessWidget {
                             margin:
                                 EdgeInsets.symmetric(vertical: globalMargin),
                             child: Text(
-                                'This page is for defining the needs of the people affected by the problem and narrowing down what it actually is.',
+                                "This is a place for POSSIBLE solutions, including seemingly crazy ones, NOT for shooting ideas down. If you're more of a visual thinker, get a pad of sticky notes or paper and spend 10 minutes writing 1-10 ideas down.",
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 20)),
                           ),
                           Container(
                               margin: EdgeInsets.all(globalMargin),
                               child: Text(
-                                'WHO is this problem affecting?',
+                                'What are some possible solutions to the problem?',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 22),
                               )),
@@ -73,66 +73,6 @@ class Defining extends StatelessWidget {
                         ],
                       )),
 
-                  // section for second prompt
-                  Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                            //margin: EdgeInsets.all(globalMargin),
-                            child: Text(
-                          'WHY is the problem happening?',
-                          style: TextStyle(color: Colors.black, fontSize: 22),
-                        )),
-                        Container(
-                            margin:
-                                EdgeInsets.symmetric(vertical: globalMargin),
-                            // using RichText widget to be able to enable the bold text sections
-                            child: RichText(
-                              text: new TextSpan(
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 20),
-                                  children: <TextSpan>[
-                                    TextSpan(
-                                        text:
-                                            'Start broad and narrow down your answer. ex: there are empty buses '),
-                                    TextSpan(
-                                        text: 'because ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(text: 'not many people '),
-                                    TextSpan(
-                                        text: 'because ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(text: 'not popular route '),
-                                    TextSpan(
-                                        text: 'because ',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold)),
-                                    TextSpan(
-                                        text:
-                                            'the area has become less populated...')
-                                  ]),
-                            )),
-                        // text field for user input
-                        Container(
-                          color: boxColor,
-                          margin: EdgeInsets.symmetric(vertical: globalPadding),
-                          child: TextField(
-                            minLines: 5,
-                            maxLines: 5,
-                            autocorrect: true,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                hintText: ' • Type your thought process here'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // second text box
-                  // text box for user input
-
                   // Button for moving to the next page
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
@@ -144,7 +84,7 @@ class Defining extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Brainstorming()));
+                                    builder: (context) => GettingStarted()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
