@@ -24,80 +24,118 @@ class Defining extends StatelessWidget {
             padding: EdgeInsets.all(globalPadding),
             color: backgroundColor,
             width: MediaQuery.of(context).size.width,
+            // listview so it can scroll
             child: ListView(children: <Widget>[
+              // column of content
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
-                  Text('Empathy',
+                  Text('Defining',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
-                  Column(
-                    children: <Widget>[
-                      Text('1) Initial Thoughts',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                          'Reflect on what you already know about the problem.',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                        ' • Worst affected group? ex: Women ages 25-35',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      ),
-                      Text(
-                          ' • Effects of the problem? ex: gas, money, and time wasted',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
-                      Text(
-                          ' • Most frequent time the problem happens? ex: 3pm on weekdays',
-                          style: TextStyle(color: Colors.black, fontSize: 20)),
-                    ],
-                  ),
-
-                  // text box for user input
+                  // first round of text (prompt and text box)
                   Container(
-                    color: boxColor,
-                    margin: EdgeInsets.all(globalPadding),
-                    child: TextField(
-                      minLines: 5,
-                      maxLines: 5,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText:
-                              'What do you already know about this problem?'),
-                    ),
-                  ),
+                      margin: EdgeInsets.symmetric(
+                          vertical: globalMargin, horizontal: 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Container(
+                            margin:
+                                EdgeInsets.symmetric(vertical: globalMargin),
+                            child: Text(
+                                'This page is for defining the needs of the people affected by the problem and narrowing down what it actually is.',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20)),
+                          ),
+                          Container(
+                              margin: EdgeInsets.all(globalMargin),
+                              child: Text(
+                                'WHO is this problem affecting?',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22),
+                              )),
+                          // text box for user input
+                          Container(
+                            color: boxColor,
+                            margin:
+                                EdgeInsets.symmetric(vertical: globalPadding),
+                            child: TextField(
+                              minLines: 5,
+                              maxLines: 5,
+                              autocorrect: true,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText:
+                                      ' • Describe the person affected here'),
+                            ),
+                          ),
+                        ],
+                      )),
 
                   // section for second prompt
-                  Column(
-                    children: <Widget>[
-                      Text('2) Ask affected people about the problem',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                          ' • What have other people noticed about this problem? ',
-                          style: TextStyle(color: Colors.black, fontSize: 25)),
-                      Text(
-                        ' • Do they have different points of view on the problem than you do?',
-                        style: TextStyle(color: Colors.black, fontSize: 20),
-                      ),
-                    ],
+                  Container(
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                            //margin: EdgeInsets.all(globalMargin),
+                            child: Text(
+                          'WHY is the problem happening?',
+                          style: TextStyle(color: Colors.black, fontSize: 22),
+                        )),
+                        Container(
+                            margin:
+                                EdgeInsets.symmetric(vertical: globalMargin),
+                            // using RichText widget to be able to enable the bold text sections
+                            child: RichText(
+                              text: new TextSpan(
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20),
+                                  children: <TextSpan>[
+                                    TextSpan(
+                                        text:
+                                            'Start broad and narrow down your answer. ex: there are empty buses '),
+                                    TextSpan(
+                                        text: 'because ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: 'not many people '),
+                                    TextSpan(
+                                        text: 'because ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: 'not popular route '),
+                                    TextSpan(
+                                        text: 'because ',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(
+                                        text:
+                                            'the area has become less populated...')
+                                  ]),
+                            )),
+                        // text field for user input
+                        Container(
+                          color: boxColor,
+                          margin: EdgeInsets.symmetric(vertical: globalPadding),
+                          child: TextField(
+                            minLines: 5,
+                            maxLines: 5,
+                            autocorrect: true,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: ' • Type your thought process here'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   // second text box
                   // text box for user input
-                  Container(
-                    color: boxColor,
-                    margin: EdgeInsets.all(globalPadding),
-                    child: TextField(
-                      minLines: 5,
-                      maxLines: 5,
-                      autocorrect: true,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText:
-                              'What did the other people say about the problem?'),
-                    ),
-                  ),
+
                   // Button for moving to the next page
                   Container(
-                      margin: EdgeInsets.all(globalMargin),
+                      margin: EdgeInsets.symmetric(vertical: globalMargin),
                       child: RaisedButton(
                           color: boxColor,
                           splashColor: Colors.blueAccent,
@@ -106,7 +144,7 @@ class Defining extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Empathy()));
+                                    builder: (context) => Defining()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

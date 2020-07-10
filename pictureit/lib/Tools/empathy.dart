@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Tools/defining.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -48,22 +49,33 @@ class Empathy extends StatelessWidget {
                               fontSize: 30,
                             ),
                           ),
-                          Text(
-                              'Reflect on what you already know about the problem.',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 22)),
-                          Text(
-                            ' • Worst affected group? ex: Women ages 25-35',
-                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          Container(
+                            margin: EdgeInsets.only(top: globalMargin),
+                            child: Text(
+                                'Reflect on what you already know about the problem.',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 22)),
                           ),
-                          Text(
-                              ' • Effects of the problem? ex: gas, money, and time wasted',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20)),
-                          Text(
-                              ' • Most frequent time the problem happens? ex: 3pm on weekdays',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 20)),
+                          Container(
+                              margin: EdgeInsets.all(globalMargin),
+                              child: Text(
+                                ' • Worst affected group? ex: Women ages 25-35',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
+                          Container(
+                              margin: EdgeInsets.all(globalMargin),
+                              child: Text(
+                                  ' • Effects of the problem? ex: gas, money, and time wasted',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20))),
+                          Container(
+                              margin: EdgeInsets.all(globalMargin),
+                              child: Text(
+                                ' • Most frequent time the problem happens? ex: 3pm on weekdays',
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 20),
+                              )),
                           // text box for user input
                           Container(
                             color: boxColor,
@@ -89,14 +101,21 @@ class Empathy extends StatelessWidget {
                         Text('2) Ask affected people about the problem',
                             style:
                                 TextStyle(color: Colors.black, fontSize: 30)),
-                        Text(
-                            ' • What have other people noticed about this problem? ',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20)),
-                        Text(
-                            ' • Do they have different points of view on the problem than you do?',
-                            style:
-                                TextStyle(color: Colors.black, fontSize: 20)),
+                        Container(
+                            margin: EdgeInsets.all(globalMargin),
+                            child: Text(
+                              ' • What have other people noticed about this problem? ',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                        Container(
+                            margin: EdgeInsets.all(globalMargin),
+                            child: Text(
+                              ' • Do they have different points of view on the problem than you do?',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 20),
+                            )),
+                        // text field for user input
                         Container(
                           color: boxColor,
                           margin: EdgeInsets.symmetric(vertical: globalPadding),
@@ -127,7 +146,7 @@ class Empathy extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Empathy()));
+                                    builder: (context) => Defining()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
