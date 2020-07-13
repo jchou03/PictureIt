@@ -15,6 +15,8 @@ const borderRadius = 10.0;
 
 class Voting1 extends StatelessWidget {
   List<String> ideas;
+  List<String> votes;
+
   Voting1(List<String> ideas) {
     this.ideas = ideas;
   }
@@ -69,12 +71,25 @@ class Voting1 extends StatelessWidget {
                                 // create a list of children based on the number of ideas from the previous page
                                 children: List.generate(ideas.length, (index) {
                               // row containing idea and checkbox
-                              return Row(children: <Widget>[
-                                Text(
-                                  ideas[index].toString(),
-                                  style: TextStyle(fontSize: 20),
-                                )
-                              ]);
+                              return Container(
+                                  margin: EdgeInsets.symmetric(
+                                      horizontal: globalMargin),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Text(
+                                          ideas[index].toString(),
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                        // upon checking the checkbox, add it to the array
+                                        Checkbox(
+                                            value: false,
+                                            onChanged: (bool value) {
+                                              votes
+                                                  .add(ideas[index].toString());
+                                            })
+                                      ]));
                             }))),
                       ])),
                   // Button for moving to the next page
@@ -88,7 +103,7 @@ class Voting1 extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Brainstorming()));
+                                    builder: (context) => Voting1(ideas)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
