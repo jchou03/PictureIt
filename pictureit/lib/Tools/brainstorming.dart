@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
+import 'package:pictureit/Tools/voting.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -14,6 +15,9 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Brainstorming extends StatelessWidget {
+  // Create a text controller and use it to retrieve the current value of the TextField.
+  final myController = TextEditingController();
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -63,6 +67,7 @@ class Brainstorming extends StatelessWidget {
                             child: TextField(
                               minLines: 5,
                               maxLines: 5,
+                              controller: myController,
                               autocorrect: true,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -81,10 +86,13 @@ class Brainstorming extends StatelessWidget {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            // for moving the text forward
+                            String ideas = myController.text;
+                            List<String> ideaList = ideasList(ideas);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => GettingStarted()));
+                                    builder: (context) => Voting1(ideaList)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -105,4 +113,12 @@ class Brainstorming extends StatelessWidget {
               )
             ])));
   }
+}
+
+// returns a list of strings where each idea is seperated by a new line (this even works for longer inputs where the text wraps, but there isn't a direct new line input)
+List<String> ideasList(String textInput) {
+  print(textInput);
+  var ideaArray = textInput.split('\n');
+  print(ideaArray);
+  return ideaArray;
 }
