@@ -2,40 +2,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // class for holding the data for ideas during voting
-class Idea extends StatefulWidget {
-  String idea;
+class Idea {
+  String ideaName;
+  bool checked;
 
-  Idea(String idea) {
-    this.idea = idea;
+  Idea(String ideaName) {
+    this.ideaName = ideaName;
+    checked = false;
   }
 
-  IdeaState createState() => IdeaState(idea);
-}
+  Idea.customChecked(String ideaName, bool checked) {
+    this.ideaName = ideaName;
+    this.checked = checked;
+  }
 
-class IdeaState extends State<Idea> {
-  bool checked = false;
-  String idea;
+  String getIdeaName() {
+    return ideaName;
+  }
 
-  IdeaState(String idea) {
-    this.idea = idea;
+  bool getChecked() {
+    return checked;
+  }
+
+  void setIdeaName(String ideaName) {
+    this.ideaName = ideaName;
+  }
+
+  void setChecked(bool checked) {
+    this.checked = checked;
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Text(
-          idea,
-          style: TextStyle(),
-        ),
-        Checkbox(
-            value: checked,
-            onChanged: (bool value) {
-              setState(() {
-                checked = !checked;
-              });
-            })
-      ],
-    );
+  String toString() {
+    return ideaName;
   }
 }
