@@ -13,11 +13,24 @@ const globalPadding = 15.0;
 const globalMargin = 15.0;
 const borderRadius = 10.0;
 
-class Voting1 extends StatelessWidget {
+class Voting1 extends StatefulWidget {
   List<String> ideas;
-  List<String> votes;
 
   Voting1(List<String> ideas) {
+    this.ideas = ideas;
+  }
+
+  @override
+  Voting1State createState() => Voting1State(ideas);
+}
+
+class Voting1State extends State<Voting1> {
+  List<String> ideas;
+  List<String> votes = [];
+
+  bool checked = false;
+
+  Voting1State(List<String> ideas) {
     this.ideas = ideas;
   }
 
@@ -84,14 +97,19 @@ class Voting1 extends StatelessWidget {
                                         ),
                                         // upon checking the checkbox, add it to the array
                                         Checkbox(
-                                            value: false,
+                                            value: checked,
                                             onChanged: (bool value) {
-                                              votes
-                                                  .add(ideas[index].toString());
+                                              setState(() {
+                                                votedList(votes,
+                                                    ideas[index].toString());
+                                                checked = !checked;
+                                              });
+                                              print(votes);
                                             })
                                       ]));
                             }))),
                       ])),
+
                   // Button for moving to the next page
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
@@ -123,5 +141,13 @@ class Voting1 extends StatelessWidget {
                 ],
               )
             ])));
+  }
+}
+
+void votedList(List<String> votes, String vote) {
+  if (votes.contains(vote)) {
+    votes.remove(vote);
+  } else {
+    votes.add(vote);
   }
 }
