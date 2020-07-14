@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pictureit/Elements/idea.dart';
+import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/voting2.dart';
 

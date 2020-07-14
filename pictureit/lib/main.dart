@@ -16,8 +16,8 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 // variables for icon changing
-var importantIcon = Icons.favorite_border;
-var importantColor = Colors.blueAccent;
+IconData importantIcon = Icons.favorite_border;
+Color importantColor = Colors.blueAccent;
 
 void main() {
   runApp(MyApp());

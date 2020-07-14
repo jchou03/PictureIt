@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pictureit/Elements/idea.dart';
+import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/voting.dart';
 
@@ -32,12 +32,17 @@ class Voting2 extends StatefulWidget {
 class Voting2State extends State<Voting2> {
   // list of the top 3 ideas from the first voting phase
   List<Idea> top3;
-  Idea top;
+  // list of the vote, using type list in order to work around a technial issue of not being able to set the instance variable through the method
+  // also what will be passed onto the next page
+  List<Idea> top = [];
 
   bool checked = false;
 
   Voting2State(List<Idea> top3) {
     this.top3 = top3;
+    for (var i = 0; i < top3.length; i++) {
+      top3[i].setChecked(false);
+    }
   }
 
   Widget build(BuildContext context) {
@@ -57,7 +62,7 @@ class Voting2State extends State<Voting2> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
-                  Text('Voting P1',
+                  Text('Voting P2',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
@@ -65,14 +70,14 @@ class Voting2State extends State<Voting2> {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: globalMargin),
                           child: Text(
-                              "This is a list of all the prototype ideas that you and your team came up with! To narrow down the scope of the project, one idea needs to be decided on as the solution the group will be focusing on.",
+                              "This is a list of the top 3 ideas that were selected from the previous list of ideas",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20)),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: globalMargin),
                           child: Text(
-                              "Please choose your top three ideas from the list!",
+                              "Please choose your favorite idea from these three options!",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20)),
                         ),
@@ -112,7 +117,7 @@ class Voting2State extends State<Voting2> {
                                                 idea.setChecked(
                                                     !idea.getChecked());
                                               });
-                                              print(top);
+                                              print('top: ' + top.toString());
                                             })
                                       ]));
                             }))),
@@ -152,15 +157,21 @@ class Voting2State extends State<Voting2> {
   }
 }
 
-// function for adding the new idea into the list, and removing the old ones if the list is over the cap
-void vote(Idea top, Idea vote) {
-  if (top is Idea && vote is Idea) {
-    if (top != vote) {
-      if (top != null) {
-        top.setChecked(!top.getChecked());
-        top = vote;
+// function for having the top 1 vote
+void vote(List<Idea> top, Idea vote) {
+  if (top is List<Idea> && vote is Idea) {
+    if (top.contains(vote)) {
+      top.remove(vote);
+    } else {
+      top.add(vote);
+      if (top.length > voteLimit) {
+        top[0].setChecked(!top[0].getChecked());
+        top.removeAt(0);
       }
-      top = vote;
     }
+  } else {
+    print("the types of the list and object don't match :(");
+    print(top.runtimeType);
+    print(vote.runtimeType);
   }
 }
