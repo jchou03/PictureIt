@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
-import 'package:pictureit/Tools/voting2.dart';
+import 'package:pictureit/Tools/voting.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -16,30 +16,33 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 // limit for voting
-const int voteLimit = 3;
+const int voteLimit = 1;
 
-class Voting1 extends StatefulWidget {
-  List<String> ideas;
+class Voting2 extends StatefulWidget {
+  List<Idea> top3;
 
-  Voting1(List<String> ideas) {
-    this.ideas = ideas;
+  Voting2(List<Idea> top3) {
+    this.top3 = top3;
   }
 
   @override
-  Voting1State createState() => Voting1State(ideas);
+  Voting2State createState() => Voting2State(top3);
 }
 
-class Voting1State extends State<Voting1> {
-  // list for the string of ideas that comes from the Brainstorming list from the previous page, this is used to create the list of ideaObjects later
-  List<String> ideas;
-  // list for the ideaObjects which hold the name of the idea and the status of the checkbox that goes with it, will be passed onto Voting P2
-  List<Idea> ideaObjects = [];
-  List<Idea> votes = [];
+class Voting2State extends State<Voting2> {
+  // list of the top 3 ideas from the first voting phase
+  List<Idea> top3;
+  // list of the vote, using type list in order to work around a technial issue of not being able to set the instance variable through the method
+  // also what will be passed onto the next page
+  List<Idea> top = [];
 
   bool checked = false;
 
-  Voting1State(List<String> ideas) {
-    this.ideas = ideas;
+  Voting2State(List<Idea> top3) {
+    this.top3 = top3;
+    for (var i = 0; i < top3.length; i++) {
+      top3[i].setChecked(false);
+    }
   }
 
   Widget build(BuildContext context) {
@@ -59,7 +62,7 @@ class Voting1State extends State<Voting1> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
-                  Text('Voting P1',
+                  Text('Voting P2',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
@@ -67,14 +70,14 @@ class Voting1State extends State<Voting1> {
                         Container(
                           margin: EdgeInsets.symmetric(vertical: globalMargin),
                           child: Text(
-                              "This is a list of all the prototype ideas that you and your team came up with! To narrow down the scope of the project, one idea needs to be decided on as the solution the group will be focusing on.",
+                              "This is a list of the top 3 ideas that were selected from the previous list of ideas",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20)),
                         ),
                         Container(
                           margin: EdgeInsets.symmetric(vertical: globalMargin),
                           child: Text(
-                              "Please choose your top three ideas from the list!",
+                              "Please choose your favorite idea from these three options!",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20)),
                         ),
@@ -90,10 +93,9 @@ class Voting1State extends State<Voting1> {
                             ),
                             child: Column(
                                 // create a list of children based on the number of ideas from the previous page
-                                children: List.generate(ideas.length, (index) {
-                              ideaObjects
-                                  .add(new Idea(ideas[index].toString()));
-                              var idea = ideaObjects[index];
+                                children: List.generate(top3.length, (index) {
+                              var idea = top3[index];
+
                               // row containing idea and checkbox
                               return Container(
                                   margin: EdgeInsets.symmetric(
@@ -108,15 +110,14 @@ class Voting1State extends State<Voting1> {
                                         ),
                                         // upon checking the checkbox, add it to the array
                                         Checkbox(
-                                            value:
-                                                ideaObjects[index].getChecked(),
+                                            value: idea.getChecked(),
                                             onChanged: (bool value) {
                                               setState(() {
-                                                votedList(votes, idea);
+                                                vote(top, idea);
                                                 idea.setChecked(
                                                     !idea.getChecked());
                                               });
-                                              print(votes);
+                                              print('top: ' + top.toString());
                                             })
                                       ]));
                             }))),
@@ -133,7 +134,7 @@ class Voting1State extends State<Voting1> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Voting2(votes)));
+                                    builder: (context) => Brainstorming()));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,19 +157,21 @@ class Voting1State extends State<Voting1> {
   }
 }
 
-// function for adding the new idea into the list, and removing the old ones if the list is over the cap
-void votedList(List<Idea> votes, Idea vote) {
-  if (votes is List<Idea> && vote is Idea) {
-    if (votes.contains(vote)) {
-      votes.remove(vote);
+// function for having the top 1 vote
+void vote(List<Idea> top, Idea vote) {
+  if (top is List<Idea> && vote is Idea) {
+    if (top.contains(vote)) {
+      top.remove(vote);
     } else {
-      votes.add(vote);
-      if (votes.length > voteLimit) {
-        votes[0].setChecked(!votes[0].getChecked());
-        votes.removeAt(0);
+      top.add(vote);
+      if (top.length > voteLimit) {
+        top[0].setChecked(!top[0].getChecked());
+        top.removeAt(0);
       }
     }
   } else {
     print("the types of the list and object don't match :(");
+    print(top.runtimeType);
+    print(vote.runtimeType);
   }
 }

@@ -16,8 +16,8 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 // variables for icon changing
-var importantIcon = Icons.favorite_border;
-var importantColor = Colors.blueAccent;
+IconData importantIcon = Icons.favorite_border;
+Color importantColor = Colors.blueAccent;
 
 void main() {
   runApp(MyApp());
@@ -37,9 +37,8 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        // home: MyHomePage(title: 'PictureIt')
-        home: GettingStarted()
-        );
+        //home: MyHomePage(title: 'PictureIt')
+        home: GettingStarted());
   }
 }
 
