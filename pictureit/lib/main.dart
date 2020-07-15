@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        //home: MyHomePage(title: 'PictureIt')
+        //home: MyHomePage(title: 'PictureIt') 
+        // uncomment above and comment below if I want to see the information feed
         home: GettingStarted());
   }
 }
