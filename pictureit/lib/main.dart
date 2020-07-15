@@ -1,4 +1,4 @@
-//import 'dart:html';
+//import 'dart:html';3
 
 import 'package:flutter/material.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
@@ -37,8 +37,8 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        home: MyHomePage(title: 'PictureIt')
-        //home: GettingStarted()
+        // home: MyHomePage(title: 'PictureIt')
+        home: GettingStarted()
         );
   }
 }
