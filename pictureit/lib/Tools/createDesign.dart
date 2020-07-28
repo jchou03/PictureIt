@@ -81,12 +81,13 @@ class CreateDesignState extends State<CreateDesign> {
                 margin: EdgeInsets.symmetric(vertical: globalPadding),
                 child: TextField(
                   minLines: 1,
-                  maxLines: 1,
+                  maxLines: 5,
                   controller: myController,
                   autocorrect: true,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
-                      hintText: 'Title of problem'),
+                      hintText:
+                          'Please put the description of your prototype here'),
                 ),
               ),
 
@@ -98,8 +99,12 @@ class CreateDesignState extends State<CreateDesign> {
                       splashColor: Colors.blueAccent,
                       padding: EdgeInsets.all(20),
                       onPressed: () {
-                        User testUser = new User('name',
-                            Image.asset("assets/images/Screenshot (437).png"));
+                        User testUser = new User(
+                            'name',
+                            Image.asset(
+                              "assets/images/Screenshot (437).png",
+                              height: 50,
+                            ));
                         List<Comment> comments = [];
                         Design design = new Design(myController.text,
                             Image.file(image), testUser, comments);

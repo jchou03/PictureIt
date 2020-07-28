@@ -108,6 +108,7 @@ class DesigningState extends State<Designing> {
                               child: Column(
                                   children:
                                       List.generate(designs.length, (index) {
+                                // container for each seperate post
                                 return Container(
                                     padding: EdgeInsets.all(globalPadding),
                                     margin: EdgeInsets.symmetric(
@@ -126,7 +127,50 @@ class DesigningState extends State<Designing> {
                                                 designs[index].getTitle(),
                                                 style: TextStyle(
                                                     color: Colors.black,
-                                                    fontSize: 22)))
+                                                    fontSize: 22))),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: <Widget>[
+                                            // left side of bottom row
+                                            Row(
+                                              children: <Widget>[
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                      horizontal:
+                                                          globalMargin / 2),
+                                                  // pfp of user
+                                                  child: designs[index]
+                                                      .getUser()
+                                                      .getPicture(),
+                                                ),
+                                                Container(
+                                                  // name of user
+                                                  child: Text(designs[index]
+                                                      .getUser()
+                                                      .getUser()),
+                                                ),
+                                              ],
+                                            ),
+
+                                            // right side of bottom row
+                                            Row(
+                                              children: <Widget>[
+                                                // display the number of comments
+                                                Text(
+                                                    '${designs[index].getComments().length}'),
+                                                Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                globalMargin /
+                                                                    2),
+                                                    child: Icon(Icons
+                                                        .chat_bubble_outline))
+                                              ],
+                                            )
+                                          ],
+                                        )
                                       ],
                                     ));
                               })),
