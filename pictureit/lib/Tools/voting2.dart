@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
+import 'package:pictureit/Tools/designing.dart';
 import 'package:pictureit/Tools/voting.dart';
 
 // color setups
@@ -131,10 +133,12 @@ class Voting2State extends State<Voting2> {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            List<Design> designs = [];
                             Navigator.push(
                                 context,
+                                // where the button will be leading to the next page
                                 MaterialPageRoute(
-                                    builder: (context) => Brainstorming()));
+                                    builder: (context) => Designing(designs)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

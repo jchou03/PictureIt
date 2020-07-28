@@ -1,8 +1,10 @@
 //import 'dart:html';3
 
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/project.dart';
+import 'package:pictureit/tools/designing.dart';
 
 // variable setup for the app
 // color setups
@@ -24,6 +26,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  List<Design> designs = [];
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -37,9 +40,9 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        //home: MyHomePage(title: 'PictureIt') 
+        //home: MyHomePage(title: 'PictureIt')
         // uncomment above and comment below if I want to see the information feed
-        home: GettingStarted());
+        home: Designing(designs));
   }
 }
 
