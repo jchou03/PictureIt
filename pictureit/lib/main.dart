@@ -1,9 +1,9 @@
-//import 'dart:html';3
+//import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
-import 'package:pictureit/project.dart';
 import 'package:pictureit/tools/designing.dart';
 
 // variable setup for the app
@@ -26,7 +26,22 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  // test of the designing & feedback page
   List<Design> designs = [];
+
+  // test input project
+  Project testProject = new Project.specific(
+      'test test',
+      'empathy 1 test',
+      'empathy 2 test',
+      'defining 1 test',
+      'defining 2 test',
+      null,
+      null,
+      null,
+      null,
+      null);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -42,7 +57,8 @@ class MyApp extends StatelessWidget {
         ),
         //home: MyHomePage(title: 'PictureIt')
         // uncomment above and comment below if I want to see the information feed
-        home: Designing(designs));
+        //home: Designing(designs));
+        home: GettingStarted(testProject));
   }
 }
 
@@ -116,15 +132,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
 
-            Project(
-                "I am the only one on the Samtrans bus and I have to wait so long for it!",
-                "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!",
-                "David",
-                Image.asset(
-                  "assets/images/Screenshot (437).png",
-                  height: 50,
-                ),
-                Image.asset("assets/images/busImg.png"))
             /*
             // container for the post of Samtrans
             Container(

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/empathy.dart';
 
 // color setups
@@ -17,19 +18,24 @@ const borderRadius = 10.0;
 
 // class for the getting started page for the problem solving tools
 class GettingStarted extends StatelessWidget {
-  // setting up fonts
-  TextStyle titleFont;
-  TextStyle textFont;
-  TextStyle subFont;
+  // project data storage
+  Project project;
 
-  /*GettingStarted(TextStyle titleFont, TextStyle textFont, TextStyle subFont) {
-    this.titleFont = titleFont;
-    this.textFont = textFont;
-    this.subFont = subFont;
-  }*/
+  GettingStarted(Project project) {
+    this.project = project;
+    if (project == null) {
+      this.project = new Project();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    // text controller for the different text fields
+    final gettingStartedController = TextEditingController();
+
+    // set the text values based on past text
+    gettingStartedController.text = project.getGettingStarted();
+
     return Scaffold(
         appBar: AppBar(title: Text('PictureIt')),
         body: Container(
@@ -66,6 +72,7 @@ class GettingStarted extends StatelessWidget {
                   minLines: 5,
                   maxLines: 5,
                   autocorrect: true,
+                  controller: gettingStartedController,
                   decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       hintText: 'Where did you first notice this problem?'),

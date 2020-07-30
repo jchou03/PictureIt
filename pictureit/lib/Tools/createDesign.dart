@@ -48,7 +48,9 @@ class CreateDesignState extends State<CreateDesign> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      image = File(pickedFile.path);
+      if (pickedFile.path != null) {
+        image = File(pickedFile.path);
+      }
     });
   }
 
@@ -104,7 +106,8 @@ class CreateDesignState extends State<CreateDesign> {
                             Image.asset(
                               "assets/images/Screenshot (437).png",
                               height: 50,
-                            ));
+                            ),
+                            'contactMe@gmail.com');
                         List<Comment> comments = [];
                         Design design = new Design(myController.text,
                             Image.file(image), testUser, comments);
