@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
+import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
 
@@ -41,11 +42,15 @@ class MyApp extends StatelessWidget {
       null,
       null,
       null,
-      null);
+      2,
+      null,
+      'Samtrans Busses',
+      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print(testProject.getStage());
     return MaterialApp(
         title: 'PictureIt',
         //routes: {'/': (context) => MyApp()},
@@ -58,8 +63,7 @@ class MyApp extends StatelessWidget {
         ),
         //home: MyHomePage(title: 'PictureIt')
         // uncomment above and comment below if I want to see the information feed
-        //home: Designing(designs));
-        home: GettingStarted(testProject));
+        home: ProjectHome(testProject));
   }
 }
 
