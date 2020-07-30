@@ -11,6 +11,7 @@ class Project {
   String empathy2;
   String defining1;
   String defining2;
+  String brainstorming;
   List<Idea> ideas;
   List<Idea> top3;
   List<Idea> top;
@@ -26,6 +27,7 @@ class Project {
     empathy2 = "";
     defining1 = "";
     defining2 = "";
+    brainstorming = "";
     ideas = [];
     top3 = [];
     top = [];
@@ -44,6 +46,7 @@ class Project {
       String empathy2,
       String defining1,
       String defining2,
+      String brainstorming,
       List<Idea> ideas,
       List<Idea> top3,
       List<Idea> top,
@@ -54,6 +57,7 @@ class Project {
     this.empathy2 = empathy2;
     this.defining1 = defining1;
     this.defining2 = defining2;
+    this.brainstorming = brainstorming;
     this.ideas = ideas;
     this.top3 = top3;
     this.top = top;
@@ -92,6 +96,10 @@ class Project {
 
   String getDefining2() {
     return defining2;
+  }
+
+  String getBrainstorming() {
+    return brainstorming;
   }
 
   List<Idea> getIdeas() {
@@ -137,6 +145,10 @@ class Project {
 
   void setDefining2(String defining2) {
     this.defining2 = defining2;
+  }
+
+  void setBrainstorming(String brainstorming) {
+    this.brainstorming = brainstorming;
   }
 
   void setIdeas(List<Idea> ideas) {

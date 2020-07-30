@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/createDesign.dart';
 
@@ -19,30 +20,21 @@ const borderRadius = 10.0;
 const int voteLimit = 1;
 
 class Designing extends StatefulWidget {
-  List<Design> designs = [];
+  Project project;
 
-  Designing(List<Design> designs) {
-    this.designs = designs;
+  Designing(Project project) {
+    this.project = project;
   }
 
   @override
-  DesigningState createState() => DesigningState(designs);
-
-  // getters and setters for the list of items
-  List<Design> getDesigns() {
-    return designs;
-  }
-
-  void setDesigns(List<Design> designs) {
-    this.designs = designs;
-  }
+  DesigningState createState() => DesigningState(project);
 }
 
 class DesigningState extends State<Designing> {
-  List<Design> designs = [];
+  Project project;
 
-  DesigningState(List<Design> designs) {
-    this.designs = designs;
+  DesigningState(Project project) {
+    this.project = project;
   }
 
   Widget build(BuildContext context) {
@@ -82,7 +74,7 @@ class DesigningState extends State<Designing> {
                                           // where the button will be leading to the next page
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  CreateDesign(designs)));
+                                                  CreateDesign(project)));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
@@ -106,8 +98,11 @@ class DesigningState extends State<Designing> {
                             // code to display all the designs in a column
                             Container(
                               child: Column(
-                                  children:
-                                      List.generate(designs.length, (index) {
+                                  children: List.generate(
+                                      project.getDesigns().length, (index) {
+                                // variable for the design object at current index
+                                Design design = project.getDesigns()[index];
+
                                 // container for each seperate post
                                 return Container(
                                     padding: EdgeInsets.all(globalPadding),
@@ -118,13 +113,12 @@ class DesigningState extends State<Designing> {
                                     child: Column(
                                       children: <Widget>[
                                         // display the image
-                                        designs[index].getImage(),
+                                        design.getImage(),
                                         // display the text of the image
                                         Container(
                                             padding: EdgeInsets.symmetric(
                                                 vertical: globalPadding),
-                                            child: Text(
-                                                designs[index].getTitle(),
+                                            child: Text(design.getTitle(),
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 22))),
@@ -140,13 +134,13 @@ class DesigningState extends State<Designing> {
                                                       horizontal:
                                                           globalMargin / 2),
                                                   // pfp of user
-                                                  child: designs[index]
+                                                  child: design
                                                       .getUser()
                                                       .getPicture(),
                                                 ),
                                                 Container(
                                                   // name of user
-                                                  child: Text(designs[index]
+                                                  child: Text(design
                                                       .getUser()
                                                       .getUserName()),
                                                 ),
@@ -158,7 +152,7 @@ class DesigningState extends State<Designing> {
                                               children: <Widget>[
                                                 // display the number of comments
                                                 Text(
-                                                    '${designs[index].getComments().length}'),
+                                                    '${design.getComments().length}'),
                                                 Container(
                                                     margin:
                                                         EdgeInsets.symmetric(

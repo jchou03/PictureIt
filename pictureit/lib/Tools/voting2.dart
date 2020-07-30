@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/designing.dart';
 import 'package:pictureit/Tools/voting.dart';
@@ -21,29 +22,28 @@ const borderRadius = 10.0;
 const int voteLimit = 1;
 
 class Voting2 extends StatefulWidget {
-  List<Idea> top3;
+  Project project;
 
-  Voting2(List<Idea> top3) {
-    this.top3 = top3;
+  Voting2(Project project) {
+    this.project = project;
   }
 
   @override
-  Voting2State createState() => Voting2State(top3);
+  Voting2State createState() => Voting2State(project);
 }
 
 class Voting2State extends State<Voting2> {
-  // list of the top 3 ideas from the first voting phase
-  List<Idea> top3;
+  Project project;
   // list of the vote, using type list in order to work around a technial issue of not being able to set the instance variable through the method
   // also what will be passed onto the next page
   List<Idea> top = [];
 
   bool checked = false;
 
-  Voting2State(List<Idea> top3) {
-    this.top3 = top3;
-    for (var i = 0; i < top3.length; i++) {
-      top3[i].setChecked(false);
+  Voting2State(Project project) {
+    this.project = project;
+    for (var i = 0; i < project.getTop3().length; i++) {
+      project.getTop3()[i].setChecked(false);
     }
   }
 
@@ -95,8 +95,9 @@ class Voting2State extends State<Voting2> {
                             ),
                             child: Column(
                                 // create a list of children based on the number of ideas from the previous page
-                                children: List.generate(top3.length, (index) {
-                              var idea = top3[index];
+                                children: List.generate(
+                                    project.getTop3().length, (index) {
+                              var idea = project.getTop3()[index];
 
                               // row containing idea and checkbox
                               return Container(
@@ -133,12 +134,13 @@ class Voting2State extends State<Voting2> {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
-                            List<Design> designs = [];
+                            // set the data in the project
+                            project.setTop(top);
                             Navigator.push(
                                 context,
                                 // where the button will be leading to the next page
                                 MaterialPageRoute(
-                                    builder: (context) => Designing(designs)));
+                                    builder: (context) => Designing(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

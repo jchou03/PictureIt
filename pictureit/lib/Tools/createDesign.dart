@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Data/design.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Tools/designing.dart';
 
@@ -20,21 +21,22 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class CreateDesign extends StatefulWidget {
-  // list of past designs
-  List<Design> designs = [];
+  Project project;
 
-  CreateDesign(List<Design> designs) {
-    this.designs = designs;
+  CreateDesign(Project project) {
+    this.project = project;
   }
 
-  CreateDesignState createState() => CreateDesignState(designs);
+  CreateDesignState createState() => CreateDesignState(project);
 }
 
 class CreateDesignState extends State<CreateDesign> {
-  List<Design> designs = [];
+  Project project;
+  List<Design> designs;
 
-  CreateDesignState(List<Design> designs) {
-    this.designs = designs;
+  CreateDesignState(Project project) {
+    this.project = project;
+    designs = project.getDesigns();
   }
 
   // Create a text controller and use it to retrieve the current value of the TextField.
@@ -111,14 +113,15 @@ class CreateDesignState extends State<CreateDesign> {
                         List<Comment> comments = [];
                         Design design = new Design(myController.text,
                             Image.file(image), testUser, comments);
-
+                        // update designs with new design
                         designs.add(design);
+                        project.setDesigns(designs);
 
                         Navigator.push(
                             context,
                             // where the button will be leading to the next page
                             MaterialPageRoute(
-                                builder: (context) => Designing(designs)));
+                                builder: (context) => Designing(project)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

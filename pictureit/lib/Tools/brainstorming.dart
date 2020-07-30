@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/idea.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Tools/voting.dart';
 
@@ -15,10 +17,18 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Brainstorming extends StatelessWidget {
+  Project project;
+
+  Brainstorming(Project project) {
+    this.project = project;
+  }
+
   // Create a text controller and use it to retrieve the current value of the TextField.
-  final myController = TextEditingController();
+  final brainstormingController = TextEditingController();
 
   Widget build(BuildContext context) {
+    brainstormingController.text = project.getBrainstorming();
+
     return Scaffold(
         appBar: AppBar(
           title: Text('PictureIt'),
@@ -67,7 +77,7 @@ class Brainstorming extends StatelessWidget {
                             child: TextField(
                               minLines: 5,
                               maxLines: 5,
-                              controller: myController,
+                              controller: brainstormingController,
                               autocorrect: true,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
@@ -87,12 +97,16 @@ class Brainstorming extends StatelessWidget {
                           padding: EdgeInsets.all(20),
                           onPressed: () {
                             // for moving the text forward
-                            String ideas = myController.text;
-                            List<String> ideaList = ideasList(ideas);
+                            String ideas = brainstormingController.text;
+                            List<Idea> ideaList = ideasList(ideas);
+
+                            project
+                                .setBrainstorming(brainstormingController.text);
+                            project.setIdeas(ideaList);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Voting1(ideaList)));
+                                    builder: (context) => Voting1(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -116,9 +130,12 @@ class Brainstorming extends StatelessWidget {
 }
 
 // returns a list of strings where each idea is seperated by a new line (this even works for longer inputs where the text wraps, but there isn't a direct new line input)
-List<String> ideasList(String textInput) {
-  print(textInput);
+List<Idea> ideasList(String textInput) {
   var ideaArray = textInput.split('\n');
   print(ideaArray);
-  return ideaArray;
+  List<Idea> ideaObjects = [];
+  for (int i = 0; i < ideaArray.length; i++) {
+    ideaObjects.add(new Idea(ideaArray[i].toString()));
+  }
+  return ideaObjects;
 }

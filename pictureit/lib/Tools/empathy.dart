@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/defining.dart';
 
 // color setups
@@ -14,7 +15,19 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Empathy extends StatelessWidget {
+  Project project;
+
+  Empathy(Project project) {
+    this.project = project;
+  }
+
   Widget build(BuildContext context) {
+    // set up text controllers
+    final empathy1Controller = TextEditingController();
+    final empathy2Controller = TextEditingController();
+    empathy1Controller.text = project.getEmpathy1();
+    empathy2Controller.text = project.getEmpathy2();
+
     return Scaffold(
         // appbar is the header
         appBar: AppBar(
@@ -85,6 +98,7 @@ class Empathy extends StatelessWidget {
                               minLines: 5,
                               maxLines: 5,
                               autocorrect: true,
+                              controller: empathy1Controller,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText:
@@ -123,6 +137,7 @@ class Empathy extends StatelessWidget {
                             minLines: 5,
                             maxLines: 5,
                             autocorrect: true,
+                            controller: empathy2Controller,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText:
@@ -143,10 +158,13 @@ class Empathy extends StatelessWidget {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            // save the new text to the project
+                            project.setEmpathy1(empathy1Controller.text);
+                            project.setEmpathy2(empathy2Controller.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Defining()));
+                                    builder: (context) => Defining(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

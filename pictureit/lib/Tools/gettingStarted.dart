@@ -86,8 +86,13 @@ class GettingStarted extends StatelessWidget {
                       splashColor: Colors.blueAccent,
                       padding: EdgeInsets.all(20),
                       onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Empathy()));
+                        // update the text for this project
+                        project
+                            .setGettingStarted(gettingStartedController.text);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Empathy(project)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
