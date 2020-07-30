@@ -48,7 +48,7 @@ class CreateDesignState extends State<CreateDesign> {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      if (pickedFile.path != null) {
+      if (pickedFile != null) {
         image = File(pickedFile.path);
       }
     });
