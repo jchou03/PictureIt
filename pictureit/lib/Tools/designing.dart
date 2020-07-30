@@ -148,7 +148,7 @@ class DesigningState extends State<Designing> {
                                                   // name of user
                                                   child: Text(designs[index]
                                                       .getUser()
-                                                      .getUser()),
+                                                      .getUserName()),
                                                 ),
                                               ],
                                             ),

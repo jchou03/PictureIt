@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 
-// data type to store data for a user
+// data type to store data for a userName
 class User {
-  String user;
+  String userName;
   Image picture;
   String contact;
 
-  User(String user, Image picture, String contact) {
-    this.user = user;
+  User(String userName, Image picture, String contact) {
+    this.userName = userName;
     this.picture = picture;
     this.contact = contact;
   }
 
-  String getUser() {
-    return user;
+  String getUserName() {
+    return userName;
   }
 
   Image getPicture() {
@@ -24,8 +24,8 @@ class User {
     return contact;
   }
 
-  void setUser(String user) {
-    this.user = user;
+  void setuserName(String userName) {
+    this.userName = userName;
   }
 
   void setPicture(Image picture) {
@@ -37,6 +37,6 @@ class User {
   }
 
   String toString() {
-    return user;
+    return userName;
   }
 }
