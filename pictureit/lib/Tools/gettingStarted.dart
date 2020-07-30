@@ -20,22 +20,20 @@ const borderRadius = 10.0;
 class GettingStarted extends StatelessWidget {
   // project data storage
   Project project;
+  // text controller for the different text fields
+  final gettingStartedController = TextEditingController();
 
   GettingStarted(Project project) {
     this.project = project;
     if (project == null) {
       this.project = new Project();
     }
+    // set the text values based on past text
+    gettingStartedController.text = project.getGettingStarted();
   }
 
   @override
   Widget build(BuildContext context) {
-    // text controller for the different text fields
-    final gettingStartedController = TextEditingController();
-
-    // set the text values based on past text
-    gettingStartedController.text = project.getGettingStarted();
-
     return Scaffold(
         appBar: AppBar(title: Text('PictureIt')),
         body: Container(
@@ -89,6 +87,7 @@ class GettingStarted extends StatelessWidget {
                         // update the text for this project
                         project
                             .setGettingStarted(gettingStartedController.text);
+                        print(project.getGettingStarted());
                         Navigator.push(
                             context,
                             MaterialPageRoute(

@@ -19,16 +19,16 @@ const borderRadius = 10.0;
 class Brainstorming extends StatelessWidget {
   Project project;
 
-  Brainstorming(Project project) {
-    this.project = project;
-  }
-
   // Create a text controller and use it to retrieve the current value of the TextField.
   final brainstormingController = TextEditingController();
 
-  Widget build(BuildContext context) {
+  Brainstorming(Project project) {
+    this.project = project;
+    // set the TextEditingController's text at the beginning
     brainstormingController.text = project.getBrainstorming();
+  }
 
+  Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: Text('PictureIt'),

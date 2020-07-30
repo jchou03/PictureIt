@@ -16,18 +16,21 @@ const borderRadius = 10.0;
 
 class Empathy extends StatelessWidget {
   Project project;
+  // set up text controllers
+  TextEditingController empathy1Controller = TextEditingController();
+  TextEditingController empathy2Controller = TextEditingController();
 
   Empathy(Project project) {
     this.project = project;
+    if (project == null) {
+      this.project = new Project();
+    }
+    // text controller text is definined in the constructor to avoid the text being reset every time the widget is built, leading to the loss of text by the user
+    empathy1Controller.text = project.getEmpathy1();
+    empathy2Controller.text = project.getEmpathy2();
   }
 
   Widget build(BuildContext context) {
-    // set up text controllers
-    final empathy1Controller = TextEditingController();
-    final empathy2Controller = TextEditingController();
-    empathy1Controller.text = project.getEmpathy1();
-    empathy2Controller.text = project.getEmpathy2();
-
     return Scaffold(
         // appbar is the header
         appBar: AppBar(

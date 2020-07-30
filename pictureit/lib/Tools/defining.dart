@@ -17,16 +17,18 @@ const borderRadius = 10.0;
 class Defining extends StatelessWidget {
   Project project;
 
+  final defining1Controller = TextEditingController();
+  final defining2Controller = TextEditingController();
+
   Defining(Project project) {
     this.project = project;
+
+    // text controller text is definined in the constructor to avoid the text being reset every time the widget is built, leading to the loss of text by the user
+    defining1Controller.text = project.getDefining1();
+    defining2Controller.text = project.getDefining2();
   }
 
   Widget build(BuildContext context) {
-    final defining1Controller = TextEditingController();
-    final defining2Controller = TextEditingController();
-    defining1Controller.text = project.getDefining1();
-    defining2Controller.text = project.getDefining2();
-
     return Scaffold(
         appBar: AppBar(
           title: Text('PictureIt'),
