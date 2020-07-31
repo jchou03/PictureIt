@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/idea.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/voting2.dart';
 
@@ -19,27 +20,25 @@ const borderRadius = 10.0;
 const int voteLimit = 3;
 
 class Voting1 extends StatefulWidget {
-  List<String> ideas;
+  Project project;
 
-  Voting1(List<String> ideas) {
-    this.ideas = ideas;
+  Voting1(Project project) {
+    this.project = project;
   }
 
   @override
-  Voting1State createState() => Voting1State(ideas);
+  Voting1State createState() => Voting1State(project);
 }
 
 class Voting1State extends State<Voting1> {
-  // list for the string of ideas that comes from the Brainstorming list from the previous page, this is used to create the list of ideaObjects later
-  List<String> ideas;
-  // list for the ideaObjects which hold the name of the idea and the status of the checkbox that goes with it, will be passed onto Voting P2
-  List<Idea> ideaObjects = [];
+  Project project;
+  // list that holds the top 3 votes that will go into Voting2
   List<Idea> votes = [];
 
   bool checked = false;
 
-  Voting1State(List<String> ideas) {
-    this.ideas = ideas;
+  Voting1State(Project project) {
+    this.project = project;
   }
 
   Widget build(BuildContext context) {
@@ -90,10 +89,9 @@ class Voting1State extends State<Voting1> {
                             ),
                             child: Column(
                                 // create a list of children based on the number of ideas from the previous page
-                                children: List.generate(ideas.length, (index) {
-                              ideaObjects
-                                  .add(new Idea(ideas[index].toString()));
-                              var idea = ideaObjects[index];
+                                children: List.generate(
+                                    project.getIdeas().length, (index) {
+                              var idea = project.getIdeas()[index];
                               // row containing idea and checkbox
                               return Container(
                                   margin: EdgeInsets.symmetric(
@@ -108,8 +106,7 @@ class Voting1State extends State<Voting1> {
                                         ),
                                         // upon checking the checkbox, add it to the array
                                         Checkbox(
-                                            value:
-                                                ideaObjects[index].getChecked(),
+                                            value: idea.getChecked(),
                                             onChanged: (bool value) {
                                               setState(() {
                                                 votedList(votes, idea);
@@ -130,10 +127,11 @@ class Voting1State extends State<Voting1> {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            project.setTop3(votes);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Voting2(votes)));
+                                    builder: (context) => Voting2(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

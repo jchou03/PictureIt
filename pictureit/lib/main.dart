@@ -2,7 +2,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
+import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
+import 'package:pictureit/Data/user.dart';
+import 'package:pictureit/MiscPages/myProjects.dart';
+import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
 import 'package:pictureit/SignUp/LogIn/signUp.dart';
@@ -37,15 +41,22 @@ class MyApp extends StatelessWidget {
       'empathy 2 test',
       'defining 1 test',
       'defining 2 test',
+      'brainstorming test',
       null,
       null,
       null,
       null,
-      null);
+      2,
+      null,
+      'Samtrans Busses',
+      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');
+  // test user
+  User testUser = createUser(true);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print(testProject.getStage());
     return MaterialApp(
         title: 'PictureIt',
         //routes: {'/': (context) => MyApp()},
@@ -56,11 +67,93 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        //home: MyHomePage(title: 'PictureIt')
-        // uncomment above and comment below if I want to see the information feed
-        //home: Designing(designs));
-        home: SignUp());
+        //home: ProjectHome(testProject));
+        home: MyProjects(testUser));
   }
+}
+
+// function for creating a user with full details to test project
+User createUser(bool withProjects) {
+  if (withProjects) {
+    User user = new User(
+        'Dave',
+        Image.asset('assets/images/Screenshot (437).png'),
+        'davedave@gmail.com');
+
+    // list to store projects that the user is involved in
+    List<Project> projects = [];
+
+    // list to store ideas that were brainstormed
+    List<Idea> ideas = ideasList(
+        'new route \nswitch large bus with smaller bus so new route \nsell bananas for money \nchange funding from unhelpful program to add new bus routes');
+
+    List<Idea> top3 = [];
+    top3.add(ideas[0]);
+    top3.add(ideas[1]);
+    top3.add(ideas[3]);
+
+    List<Idea> top = [];
+    top.add(top3[0]);
+
+    // list to store designs
+    List<Design> designs = [];
+    Design design1 =
+        new Design('new bus route', Image.asset('route82.jpg'), user, []);
+    designs.add(design1);
+
+    // 1st project user is involved in
+    Project project1 = new Project.specific(
+        'I first learned about this problem as I noticed that the busses were empty every day',
+        'I know that schoolchildren are affected becasue it pulls resources away from the routes that they need more busses for',
+        'I interviewed 3 people, one student, one buisness worker, and a banana. After talking through all of them, they feel like they bus routes are poorly designed',
+        'This problem affects most residents living in the suburbs outside of EPA because they have less access to useful bus routes.',
+        'This problem is happening because there were government officials who coerced into designing this route to prevent less low income people from having easy access to the city center',
+        'new route \nswitch large bus with smaller bus so new route \nsell bananas for money \nchange funding from unhelpful program to add new bus routes',
+        ideas,
+        top3,
+        top,
+        designs,
+        4,
+        user,
+        'SamTrans Busses',
+        'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');
+
+    // 2nd project user is involved in
+    Project project2 = new Project.specific(
+        'I\'ve been having issues with the ice cream in the city, where any ice cream that I get ',
+        'I have been an ice cream connoisseur for years now, and I\'ve noticed that recently, all the ice cream in EPA is soft and melts super quickly.',
+        'banana',
+        'The people affected by this problem are children who need ice cream to develop their brains.',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        user,
+        'Hot Ice Cream',
+        'There\'s an issue with hot ice cream all around the city where all the ice cream is hot and melts within 2 seconds');
+
+    // add the project following
+    projects.add(project1);
+    projects.add(project2);
+
+    user.setProjects(projects);
+
+    return user;
+  }
+}
+
+// returns a list of strings where each idea is seperated by a new line (this even works for longer inputs where the text wraps, but there isn't a direct new line input)
+List<Idea> ideasList(String textInput) {
+  var ideaArray = textInput.split('\n');
+  print(ideaArray);
+  List<Idea> ideaObjects = [];
+  for (int i = 0; i < ideaArray.length; i++) {
+    ideaObjects.add(new Idea(ideaArray[i].toString()));
+  }
+  return ideaObjects;
 }
 
 class MyHomePage extends StatefulWidget {
@@ -98,160 +191,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called
-
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      backgroundColor: backgroundColor,
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // an array of widgets for
-          children: <Widget>[
-            // container for displaying the current projects that the user is engaged in
-            Container(
-              // set the width to fill the width of the screen
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(globalPadding),
-              margin: EdgeInsets.all(globalMargin),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  color: Colors.white),
-              // the column containing the content
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text('My Projects: '),
-                  Text('SamTrans - Leader'),
-                  Text('Homlessness - Leader'),
-                ],
-              ),
-            ),
-
-            /*
-            // container for the post of Samtrans
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(globalPadding),
-              margin: EdgeInsets.all(globalMargin),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(borderRadius),
-                  color: Colors.white),
-              // the column containing the content
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      // the expanded class makes it so the text doesn't run off of the screen
-                      Expanded(
-                          child: Text(
-                              'I am the only one on the Samtrans bus and I have to wait so long for it!')),
-                      // button for joining the project
-                      FlatButton(
-                        color: boxColor,
-                        textColor: arrowColor,
-                        disabledColor: Colors.grey,
-                        disabledTextColor: Colors.black,
-                        padding: EdgeInsets.all(8.0),
-                        splashColor: Colors.blueAccent,
-                        onPressed: () {},
-                        child: Text('Join Project'),
-                      ),
-                    ],
-                  ),
-                  // add a margin to the image so it doesn't go right up to the text
-                  Container(
-                    margin: EdgeInsets.all(globalMargin),
-                    child: Image.asset(
-                      'assets/images/busImg.png',
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                  ),
-                  // row to display pfp, name, and exclamation points
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      // left section of the row
-                      Row(
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/images/Screenshot (437).png',
-                            height: 50,
-                          ),
-                          Text('David'),
-                        ],
-                      ),
-
-                      // right section of the row showing the exclamation points & stuff
-                      Row(
-                        children: <Widget>[
-                          IconButton(
-                            icon: Icon(importantIcon),
-                            color: importantColor,
-                            onPressed: () {
-                              setState(() {
-                                if (importantColor == Colors.redAccent) {
-                                  importantColor = Colors.blueAccent;
-                                  importantIcon = Icons.favorite_border;
-                                  _likeCounter--;
-                                } else {
-                                  importantColor = Colors.redAccent;
-                                  importantIcon = Icons.favorite;
-                                  _likeCounter++;
-                                }
-                              });
-                            },
-                          ),
-                          Text('$_likeCounter'),
-                          Icon(
-                            Icons.chat_bubble_outline,
-                            size: 24.0,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                  Text(
-                      "I've been riding the SamTrans Bus route 260 for the last two months and almost every time, no one was on the bus except me and the bus driver!"),
-                ],
-              ),
-            ),*/
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementLikeCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    return Scaffold();
   }
-}
-
-// Function for creating containers for different parts of the app *unfinished*
-Container SectionCreation(String title, BuildContext context) {
-  Container item = Container(
-    width: MediaQuery.of(context).size.width,
-    padding: EdgeInsets.all(globalPadding),
-    margin: EdgeInsets.all(globalMargin),
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius), color: Colors.white),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Text('My Projects: '),
-        Text('SamTrans - Leader'),
-        Text('Homlessness - Leader'),
-      ],
-    ),
-  );
-
-  return item;
 }

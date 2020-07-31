@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 
 // color setups
@@ -14,6 +15,19 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Defining extends StatelessWidget {
+  Project project;
+
+  final defining1Controller = TextEditingController();
+  final defining2Controller = TextEditingController();
+
+  Defining(Project project) {
+    this.project = project;
+
+    // text controller text is definined in the constructor to avoid the text being reset every time the widget is built, leading to the loss of text by the user
+    defining1Controller.text = project.getDefining1();
+    defining2Controller.text = project.getDefining2();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -64,6 +78,7 @@ class Defining extends StatelessWidget {
                               minLines: 5,
                               maxLines: 5,
                               autocorrect: true,
+                              controller: defining1Controller,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText:
@@ -122,6 +137,7 @@ class Defining extends StatelessWidget {
                             minLines: 5,
                             maxLines: 5,
                             autocorrect: true,
+                            controller: defining2Controller,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: ' • Type your thought process here'),
@@ -141,10 +157,15 @@ class Defining extends StatelessWidget {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            // updating the project data
+                            project.setDefining1(defining1Controller.text);
+                            project.setDefining2(defining2Controller.text);
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Brainstorming()));
+                                    builder: (context) =>
+                                        Brainstorming(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

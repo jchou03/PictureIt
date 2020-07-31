@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/defining.dart';
 
 // color setups
@@ -14,6 +15,21 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Empathy extends StatelessWidget {
+  Project project;
+  // set up text controllers
+  TextEditingController empathy1Controller = TextEditingController();
+  TextEditingController empathy2Controller = TextEditingController();
+
+  Empathy(Project project) {
+    this.project = project;
+    if (project == null) {
+      this.project = new Project();
+    }
+    // text controller text is definined in the constructor to avoid the text being reset every time the widget is built, leading to the loss of text by the user
+    empathy1Controller.text = project.getEmpathy1();
+    empathy2Controller.text = project.getEmpathy2();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         // appbar is the header
@@ -85,6 +101,7 @@ class Empathy extends StatelessWidget {
                               minLines: 5,
                               maxLines: 5,
                               autocorrect: true,
+                              controller: empathy1Controller,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText:
@@ -123,6 +140,7 @@ class Empathy extends StatelessWidget {
                             minLines: 5,
                             maxLines: 5,
                             autocorrect: true,
+                            controller: empathy2Controller,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText:
@@ -143,10 +161,13 @@ class Empathy extends StatelessWidget {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () {
+                            // save the new text to the project
+                            project.setEmpathy1(empathy1Controller.text);
+                            project.setEmpathy2(empathy2Controller.text);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Defining()));
+                                    builder: (context) => Defining(project)));
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

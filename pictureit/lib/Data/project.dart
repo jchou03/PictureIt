@@ -7,19 +7,44 @@ import 'package:pictureit/Data/user.dart';
 // holds all user writing and selected ideas
 class Project {
   // each variable will hold the value that the user puts into each page
+  // stores string value of text on GettingStarted page
   String gettingStarted;
+  // stores the value of the first text box on the Empathy page
   String empathy1;
+  // stores the value of the second text box on the Empathy page
   String empathy2;
+  // stores the value of the first text box on the Defining page
   String defining1;
+  // stores the value of the second text box on the Defining page
   String defining2;
+  // stores the text value of the Brainstorming page
+  String brainstorming;
+  // stores the List of Idea(s) that are created based on the parsed string above
   List<Idea> ideas;
+  // stores the List of Idea(s) that are the top 3 ideas
   List<Idea> top3;
+  // stores the top voted Idea
   List<Idea> top;
+  // stores the List of Design(s) that are basically all the prototypes
   List<Design> designs;
 
   // overall project variables (like user creator)
+  // stores the stage that the project is on (as a number, 0 index)
   int stage;
+  // stores the list of possible stages for the project (same for all projects)
+  List<String> stages = [
+    'Perspectives',
+    'Define',
+    'Brainstorm',
+    'Voting',
+    'Designing & Feedback'
+  ];
+  // stores the User that created the project
   User creator;
+  // the title of the project
+  String title;
+  // the description of the project
+  String description;
 
   Project() {
     gettingStarted = "";
@@ -27,6 +52,7 @@ class Project {
     empathy2 = "";
     defining1 = "";
     defining2 = "";
+    brainstorming = "";
     ideas = [];
     top3 = [];
     top = [];
@@ -36,6 +62,8 @@ class Project {
     User defaultUser = new User('David',
         Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
     creator = defaultUser;
+    title = 'Project Title';
+    description = 'Project description';
   }
 
   // specific constructor which lets you specify specific values for items
@@ -45,21 +73,29 @@ class Project {
       String empathy2,
       String defining1,
       String defining2,
+      String brainstorming,
       List<Idea> ideas,
       List<Idea> top3,
       List<Idea> top,
       List<Design> designs,
-      int stage) {
+      int stage,
+      User creator,
+      String title,
+      String description) {
     this.gettingStarted = gettingStarted;
     this.empathy1 = empathy1;
     this.empathy2 = empathy2;
     this.defining1 = defining1;
     this.defining2 = defining2;
+    this.brainstorming = brainstorming;
     this.ideas = ideas;
     this.top3 = top3;
     this.top = top;
     this.designs = designs;
     this.stage = stage;
+    this.creator = creator;
+    this.title = title;
+    this.description = description;
 
     // defaults if they are null
     if (gettingStarted == null) this.gettingStarted = "";
@@ -72,6 +108,11 @@ class Project {
     if (top == null) this.top = [];
     if (designs == null) this.designs = [];
     if (stage == null) this.stage = 0;
+    if (creator == null)
+      this.creator = new User('David',
+          Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
+    if (title == null) this.title = 'Project Title';
+    if (description == null) this.description = 'Project description';
   }
 
   // getters for each variable
@@ -95,6 +136,10 @@ class Project {
     return defining2;
   }
 
+  String getBrainstorming() {
+    return brainstorming;
+  }
+
   List<Idea> getIdeas() {
     return ideas;
   }
@@ -115,8 +160,20 @@ class Project {
     return stage;
   }
 
+  List<String> getStages() {
+    return stages;
+  }
+
   User getCreator() {
     return creator;
+  }
+
+  String getTitle() {
+    return title;
+  }
+
+  String getDescription() {
+    return description;
   }
 
   // setters for each variable
@@ -138,6 +195,10 @@ class Project {
 
   void setDefining2(String defining2) {
     this.defining2 = defining2;
+  }
+
+  void setBrainstorming(String brainstorming) {
+    this.brainstorming = brainstorming;
   }
 
   void setIdeas(List<Idea> ideas) {
@@ -162,5 +223,13 @@ class Project {
 
   void setCreator(User creator) {
     this.creator = creator;
+  }
+
+  void setTitle(String title) {
+    this.title = title;
+  }
+
+  void setDescription(String description) {
+    this.description = description;
   }
 }
