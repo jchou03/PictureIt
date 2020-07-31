@@ -175,39 +175,26 @@ class ProjectHomeState extends State<ProjectHome> {
                       ],
                     ),
                   ),
-                  // second text box
-                  // text box for user input
 
-                  // Button for moving to the next page
+                  // contact info
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
-                      child: RaisedButton(
-                          color: boxColor,
-                          splashColor: Colors.blueAccent,
-                          padding: EdgeInsets.all(20),
-                          onPressed: () {
-                            // depending on step,
-
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Defining(project)));
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Text(
-                                "Next",
-                                style:
-                                    TextStyle(color: arrowColor, fontSize: 20),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: arrowColor,
-                                size: 20,
-                              )
-                            ],
-                          )))
+                      padding: EdgeInsets.all(globalPadding),
+                      width: MediaQuery.of(context).size.width,
+                      color: boxColor,
+                      child: Column(
+                        children: <Widget>[
+                          Text('Contact info:',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 22)),
+                          Container(
+                              padding: EdgeInsets.all(globalPadding),
+                              child: Text(
+                                  '${project.getCreator().getContact()}',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 20)))
+                        ],
+                      )),
                 ],
               )
             ])));
