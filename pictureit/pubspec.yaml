@@ -49,6 +49,7 @@ flutter:
   assets:
     - assets/images/busImg.png
     - assets/images/Screenshot (437).png
+    - assets/images/route82.jpg
 
   
   # An image asset can refer to one or more resolution-specific "variants", see
