@@ -5,6 +5,7 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
+import 'package:pictureit/SignUp/LogIn/signUp.dart';
 
 // variable setup for the app
 // color setups
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         //home: MyHomePage(title: 'PictureIt')
         // uncomment above and comment below if I want to see the information feed
         //home: Designing(designs));
-        home: GettingStarted(testProject));
+        home: SignUp());
   }
 }
 

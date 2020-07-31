@@ -4,6 +4,7 @@ import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/user.dart';
 
 // class to hold the data of the project
+// holds all user writing and selected ideas
 class Project {
   // each variable will hold the value that the user puts into each page
   String gettingStarted;
