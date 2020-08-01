@@ -4,22 +4,25 @@ import 'package:pictureit/Data/project.dart';
 // data type to store data for a userName
 class User {
   String userName;
+  String password;
   Image picture;
   String contact;
   List<Project> projects;
   List<Project> followedProjects;
 
-  User(String userName, Image picture, String contact) {
+  User(String userName, String password, Image picture, String contact) {
     this.userName = userName;
+    this.password = password;
     this.picture = picture;
     this.contact = contact;
     this.projects = [];
     this.followedProjects = [];
   }
 
-  User.withProjects(String userName, Image picture, String contact,
+  User.withProjects(String userName, String password, Image picture, String contact,
       List<Project> projects, List<Project> followedProjects) {
     this.userName = userName;
+    this.password = password;
     this.picture = picture;
     this.contact = contact;
     this.projects = projects;
@@ -28,6 +31,10 @@ class User {
 
   String getUserName() {
     return userName;
+  }
+
+  String getPassword() {
+    return password;
   }
 
   Image getPicture() {
@@ -48,6 +55,10 @@ class User {
 
   void setuserName(String userName) {
     this.userName = userName;
+  }
+
+  void setPassword(String password) {
+    this.password = password;
   }
 
   void setPicture(Image picture) {

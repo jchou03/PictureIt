@@ -9,6 +9,10 @@ import 'package:pictureit/MiscPages/myProjects.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
+//
+import 'package:firebase_core/firebase_core.dart';
+
+import 'SignUp/LogIn/signUp.dart';
 
 // variable setup for the app
 // color setups
@@ -67,7 +71,9 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: ProjectHome(testProject));
-        home: MyProjects(testUser));
+        //home: RegistrationScreen());
+       home: SignUp(testUser));
+        //home: MyProjects(testUser));
   }
 }
 
@@ -75,7 +81,7 @@ class MyApp extends StatelessWidget {
 User createUser(bool withProjects) {
   if (withProjects) {
     User user = new User(
-        'Dave',
+        'Dave', 'password123',
         Image.asset(
           'assets/images/Screenshot (437).png',
           height: 50,

@@ -104,7 +104,7 @@ class CreateDesignState extends State<CreateDesign> {
                       padding: EdgeInsets.all(20),
                       onPressed: () {
                         User testUser = new User(
-                            'name',
+                            'name', 'password123',
                             Image.asset(
                               "assets/images/Screenshot (437).png",
                               height: 50,

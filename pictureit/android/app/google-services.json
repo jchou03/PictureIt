@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "406928689437",
+    "firebase_url": "https://envisionit-74a6d.firebaseio.com",
+    "project_id": "envisionit-74a6d",
+    "storage_bucket": "envisionit-74a6d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:406928689437:android:07911712b84cc25c2f39f4",
+        "android_client_info": {
+          "package_name": "com.hannahlevin.envisionit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "406928689437-e4mcuj5qiiirnl5mgpck956j6q7uq0gq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hannahlevin.envisionit",
+            "certificate_hash": "6d27d901d8b77cc70c94fe5dd9241f28412485a7"
+          }
+        },
+        {
+          "client_id": "406928689437-jqf792381vdfvn7kmj3cap3jgokj96ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmNuS4V-Q-RwWz0t2VNrjVURLQHHmqHHU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "406928689437-jqf792381vdfvn7kmj3cap3jgokj96ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/empathy.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -18,6 +19,33 @@ const borderRadius = 10.0;
 
 // class for the getting started page for the problem solving tools
 class GettingStarted extends StatelessWidget {
+  final auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+
+
+  @override
+  void initState() {
+    //super.initState();
+    // above line of code used in course video, but for me it gives an error
+
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    try {
+    final user = await auth.currentUser();
+    if (user != null) {
+      loggedInUser = user;
+      print(loggedInUser.email);
+
+    }
+    }
+    catch (e) {
+      print(e);
+
+    }
+
+  }
   // project data storage
   Project project;
   // text controller for the different text fields
@@ -112,4 +140,3 @@ class GettingStarted extends StatelessWidget {
         ));
   }
 }
-// spooky comment
