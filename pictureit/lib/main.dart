@@ -9,6 +9,7 @@ import 'package:pictureit/MiscPages/myProjects.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
+import 'package:pictureit/SignUp/LogIn/signUp.dart';
 
 // variable setup for the app
 // color setups
