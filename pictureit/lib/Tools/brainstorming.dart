@@ -103,6 +103,11 @@ class Brainstorming extends StatelessWidget {
                             project
                                 .setBrainstorming(brainstormingController.text);
                             project.setIdeas(ideaList);
+
+                            if (project.getStage() < 3) {
+                              project.setStage(3);
+                            }
+
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

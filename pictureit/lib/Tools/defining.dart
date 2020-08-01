@@ -160,7 +160,9 @@ class Defining extends StatelessWidget {
                             // updating the project data
                             project.setDefining1(defining1Controller.text);
                             project.setDefining2(defining2Controller.text);
-
+                            if (project.getStage() < 2) {
+                              project.setStage(2);
+                            }
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

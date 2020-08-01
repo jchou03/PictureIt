@@ -9,7 +9,6 @@ import 'package:pictureit/MiscPages/myProjects.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
-import 'package:pictureit/SignUp/LogIn/signUp.dart';
 
 // variable setup for the app
 // color setups
@@ -77,7 +76,10 @@ User createUser(bool withProjects) {
   if (withProjects) {
     User user = new User(
         'Dave',
-        Image.asset('assets/images/Screenshot (437).png'),
+        Image.asset(
+          'assets/images/Screenshot (437).png',
+          height: 50,
+        ),
         'davedave@gmail.com');
 
     // list to store projects that the user is involved in
@@ -99,8 +101,8 @@ User createUser(bool withProjects) {
 
     // list to store designs
     List<Design> designs = [];
-    Design design1 =
-        new Design('new bus route', Image.asset('route82.jpg'), user, []);
+    Design design1 = new Design(
+        'new bus route', Image.asset('assets/images/route82.jpg'), user, []);
     designs.add(design1);
 
     // 1st project user is involved in
@@ -140,6 +142,8 @@ User createUser(bool withProjects) {
     // add the project following
     projects.add(project1);
     projects.add(project2);
+    followedProjects.add(project2);
+    followedProjects.add(project1);
 
     user.setProjects(projects);
     user.setFollowedProjects(followedProjects);

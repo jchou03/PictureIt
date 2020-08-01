@@ -164,6 +164,9 @@ class Empathy extends StatelessWidget {
                             // save the new text to the project
                             project.setEmpathy1(empathy1Controller.text);
                             project.setEmpathy2(empathy2Controller.text);
+                            if (project.getStage() < 1) {
+                              project.setStage(1);
+                            }
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

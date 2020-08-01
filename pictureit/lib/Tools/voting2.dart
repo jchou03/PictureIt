@@ -136,6 +136,9 @@ class Voting2State extends State<Voting2> {
                           onPressed: () {
                             // set the data in the project
                             project.setTop(top);
+                            if (project.getStage() < 4) {
+                              project.setStage(4);
+                            }
                             Navigator.push(
                                 context,
                                 // where the button will be leading to the next page
