@@ -45,6 +45,11 @@ class Project {
   // the description of the project
   String description;
 
+  // the list of collaborators
+  List<User> collaborators;
+  // the list of followers
+  List<User> followers;
+
   Project() {
     gettingStarted = "";
     empathy1 = "";
@@ -63,6 +68,9 @@ class Project {
     creator = defaultUser;
     title = 'Project Title';
     description = 'Project description';
+
+    collaborators = [];
+    followers = [];
   }
 
   // specific constructor which lets you specify specific values for items
@@ -95,6 +103,8 @@ class Project {
     this.creator = creator;
     this.title = title;
     this.description = description;
+    this.collaborators = [];
+    this.followers = [];
 
     // defaults if they are null
     if (gettingStarted == null) this.gettingStarted = "";
@@ -112,6 +122,10 @@ class Project {
           Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
     if (title == null) this.title = 'Project Title';
     if (description == null) this.description = 'Project description';
+    if (collaborators == null) this.collaborators = [];
+    if (followers == null) this.followers = [];
+
+    collaborators.add(creator);
   }
 
   // getters for each variable
@@ -175,6 +189,14 @@ class Project {
     return description;
   }
 
+  List<User> getCollaborators() {
+    return collaborators;
+  }
+
+  List<User> getFollowers() {
+    return followers;
+  }
+
   // setters for each variable
   void setGettingStarted(String gettingStarted) {
     this.gettingStarted = gettingStarted;
@@ -230,5 +252,13 @@ class Project {
 
   void setDescription(String description) {
     this.description = description;
+  }
+
+  void setCollaborators(List<User> collaborators) {
+    this.collaborators = collaborators;
+  }
+
+  void setFollowers(List<User> followers) {
+    this.followers = followers;
   }
 }

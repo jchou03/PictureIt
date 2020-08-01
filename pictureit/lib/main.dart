@@ -81,6 +81,8 @@ User createUser(bool withProjects) {
 
     // list to store projects that the user is involved in
     List<Project> projects = [];
+    // list to store projects the user is following
+    List<Project> followedProjects = [];
 
     // list to store ideas that were brainstormed
     List<Idea> ideas = ideasList(
@@ -139,6 +141,7 @@ User createUser(bool withProjects) {
     projects.add(project2);
 
     user.setProjects(projects);
+    user.setFollowedProjects(followedProjects);
 
     return user;
   }

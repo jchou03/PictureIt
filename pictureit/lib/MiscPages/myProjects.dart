@@ -51,7 +51,21 @@ class MyProjectsState extends State<MyProjects> {
                   // title
                   Text('My Projects',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
-                  // first box for my projects (leader or collaborator)
+                  Container(
+                      color: headingColor,
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.all(globalMargin),
+                      padding: EdgeInsets.all(globalPadding),
+                      child: Column(children: <Widget>[
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Working on',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 25)),
+                        ),
+                        listProjects(context, user)
+                      ])),
+                  // second box for projects that are being followed
                   Container(
                       color: headingColor,
                       width: MediaQuery.of(context).size.width,
@@ -61,54 +75,13 @@ class MyProjectsState extends State<MyProjects> {
                         children: <Widget>[
                           Container(
                             alignment: Alignment.centerLeft,
-                            child: Text('Working on',
+                            child: Text('Following',
                                 style: TextStyle(
                                     color: Colors.black, fontSize: 25)),
                           ),
                           // create a column of RichTexts displaying the projects
-                          Column(
-                              children: List.generate(user.getProjects().length,
-                                  (index) {
-                            Project project = user.getProjects()[index];
-                            String role = 'Collaborator';
-                            if (project.getCreator() == user) {
-                              role = 'Leader';
-                            }
-
-                            return Container(
-                                alignment: Alignment.centerLeft,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: globalPadding / 2),
-                                // uses richtext because then it allows for in text links to the project pages
-                                child: RichText(
-                                  textAlign: TextAlign.left,
-                                  text: TextSpan(
-                                      // set up the default style
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 20),
-                                      children: <TextSpan>[
-                                        // text that takes to project page
-                                        TextSpan(
-                                            text: '•${project.getTitle()}',
-                                            style: TextStyle(
-                                                color: boxColor,
-                                                decoration:
-                                                    TextDecoration.underline),
-                                            // link within text
-                                            recognizer:
-                                                new TapGestureRecognizer()
-                                                  ..onTap = () {
-                                                    Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                            builder: (context) =>
-                                                                ProjectHome(
-                                                                    project)));
-                                                  }),
-                                        TextSpan(text: ' - ' + role),
-                                      ]),
-                                ));
-                          }))
+                          listFollowedProjects(
+                              context, user, user.getFollowedProjects())
                         ],
                       )),
                 ],
@@ -116,5 +89,107 @@ class MyProjectsState extends State<MyProjects> {
             ],
           ),
         ));
+  }
+}
+
+// first box for my projects (leader or collaborator)
+Widget listProjects(BuildContext context, User user) {
+  List<Project> projects = user.getProjects();
+  if (projects == []) {
+    return Container(
+      child: Text(
+        'no projects here',
+        style: TextStyle(color: Colors.black, fontSize: 20),
+      ),
+    );
+  } else {
+    // create a column of RichTexts displaying the projects
+    return Column(
+        children: List.generate(user.getProjects().length, (index) {
+      Project project = user.getProjects()[index];
+      String role = 'Collaborator';
+      if (project.getCreator() == user) {
+        role = 'Leader';
+      }
+
+      return Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(vertical: globalPadding / 2),
+          // uses richtext because then it allows for in text links to the project pages
+          child: RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(
+                // set up the default style
+                style: TextStyle(color: Colors.black, fontSize: 20),
+                children: <TextSpan>[
+                  // text that takes to project page
+                  TextSpan(
+                      text: '•${project.getTitle()}',
+                      style: TextStyle(
+                          color: boxColor,
+                          decoration: TextDecoration.underline),
+                      // link within text
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProjectHome(project)));
+                        }),
+                  TextSpan(text: ' - ' + role),
+                ]),
+          ));
+    }));
+  }
+}
+
+// function for making sure that there are followed projects to prevent it trying to list an error
+Widget listFollowedProjects(
+    BuildContext context, User user, List<Project> followedProjects) {
+  if (followedProjects.length == 0) {
+    return Container(
+      margin: EdgeInsets.all(globalMargin),
+      child: Text(
+        'no projects here',
+        style: TextStyle(color: Colors.black, fontSize: 20),
+      ),
+    );
+  } else {
+    return Column(
+        children: List.generate(followedProjects.length, (index) {
+      Project project = followedProjects[index];
+      int numCollaborators = followedProjects.length;
+      if (followedProjects == []) {
+        numCollaborators = 0;
+      }
+
+      return Container(
+          alignment: Alignment.centerLeft,
+          padding: EdgeInsets.symmetric(vertical: globalPadding / 2),
+          // uses richtext because then it allows for in text links to the project pages
+          child: RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(
+                // set up the default style
+                style: TextStyle(color: Colors.black, fontSize: 20),
+                children: <TextSpan>[
+                  // text that takes to project page
+                  TextSpan(
+                      text: '•${project.getTitle()}',
+                      style: TextStyle(
+                          color: boxColor,
+                          decoration: TextDecoration.underline),
+                      // link within text
+                      recognizer: new TapGestureRecognizer()
+                        ..onTap = () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProjectHome(project)));
+                        }),
+                  TextSpan(text: ' - ${numCollaborators} residents working on'),
+                ]),
+          ));
+    }));
   }
 }
