@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
-import 'package:pictureit/SignUp/LogIn/logIn.dart';
+import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,34 +19,31 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 
-class SignUp extends StatefulWidget {
+class LogIn extends StatefulWidget {
   @override
   
   User user;
 
-  SignUp (User user) {
-    this.user = user;
-    
-  }
-  SignUpState createState() => SignUpState(user);
+  
+  LogInState createState() => LogInState();
  
 }
 
-class SignUpState extends State<SignUp> {
+class LogInState extends State<LogIn> {
 
     User user;
     final auth = FirebaseAuth.instance;
-    TextEditingController nameController = TextEditingController();
     TextEditingController emailController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
 
-    SignUpState(User user) {
+/*
+    LogInState(User user) {
       this.user = user;
-       nameController.text = user.getUserName();
        emailController.text = user.getContact();
        passwordController.text = user.getPassword();
       
     }
+    */
     Widget build(BuildContext context) {
     return Scaffold(
         // appbar is the header
@@ -76,24 +73,7 @@ class SignUpState extends State<SignUp> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                         
-                          // text box for user input
-                          Container(
-                            color: boxColor,
-                            margin:
-                                EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
-                            child: TextField(
-                              controller: nameController,
-                              minLines: 1,
-                              maxLines: 1,
-                              autocorrect: true,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText:
-                                      'Name:'),
-                            ),
-                          ),
-                        ],
-                      )),
+                         
 
                   // section for second prompt
                   Container(
@@ -158,14 +138,16 @@ class SignUpState extends State<SignUp> {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () async {
-                            // implemented registration functionality
-                            user.setuserName(nameController.text);
+                            // implemented login functionality
+
+                            
+                  
                             user.setContact(emailController.text);
                             user.setPassword(passwordController.text);
                             try {
-                              final newUser = await auth.createUserWithEmailAndPassword(email: user.getContact(), password: user.getPassword());
-                              if (newUser != null) {
-                                 Navigator.push(context,MaterialPageRoute(builder: (context) => GettingStarted(Project())));
+                                  final userLogIn = await auth.signInWithEmailAndPassword(email: user.getContact(), password: user.getPassword());
+                              if (user != null) {
+                                 Navigator.push(context,MaterialPageRoute(builder: (context) => ProjectHome(Project())));
                                  // other code from course used .pushNamed
                               }
 
@@ -196,6 +178,6 @@ class SignUpState extends State<SignUp> {
                           )))
                 ],
               )
-            ])));
+            )])])));
   }
 }
