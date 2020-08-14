@@ -5,6 +5,7 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
+import 'package:pictureit/MiscPages/createProject.dart';
 import 'package:pictureit/MiscPages/myProjects.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
@@ -72,10 +73,10 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         //home: ProjectHome(testProject));
-        
-    home: HomePage());
-      //home: SignUp(testUser));
-        // home: MyProjects(testUser));
+
+        //home: HomePage());
+        //home: SignUp(testUser));
+        home: CreateProject(testUser));
   }
 }
 
@@ -83,7 +84,8 @@ class MyApp extends StatelessWidget {
 User createUser(bool withProjects) {
   if (withProjects) {
     User user = new User(
-        'Dave', 'password123',
+        'Dave',
+        'password123',
         Image.asset(
           'assets/images/Screenshot (437).png',
           height: 50,
