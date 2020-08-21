@@ -113,7 +113,7 @@ class DesigningState extends State<Designing> {
                                     child: Column(
                                       children: <Widget>[
                                         // display the image
-                                        design.getImage(),
+                                        Image.asset(design.getImage()),
                                         // display the text of the image
                                         Container(
                                             padding: EdgeInsets.symmetric(

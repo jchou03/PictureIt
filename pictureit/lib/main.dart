@@ -1,5 +1,7 @@
 //import 'dart:html';
 
+import 'package:camera/camera.dart';
+//import 'package:camera/new/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
@@ -7,6 +9,7 @@ import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/MiscPages/createProject.dart';
 import 'package:pictureit/MiscPages/myProjects.dart';
+import 'package:pictureit/MiscPages/pictureTest.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/tools/designing.dart';
@@ -31,11 +34,26 @@ const borderRadius = 10.0;
 IconData importantIcon = Icons.favorite_border;
 Color importantColor = Colors.blueAccent;
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+// Ensure that plugin services are initialized so that `availableCameras()`
+// can be called before `runApp()`
+  WidgetsFlutterBinding.ensureInitialized();
+
+// Obtain a list of the available cameras on the device.
+  final cameras = await availableCameras();
+
+// Get a specific camera from the list of available cameras.
+  final firstCamera = cameras.first;
+
+  runApp(MyApp(firstCamera));
 }
 
 class MyApp extends StatelessWidget {
+  CameraDescription camera;
+  MyApp(CameraDescription firstCamera) {
+    this.camera = camera;
+  }
+
   // test of the designing & feedback page
   List<Design> designs = [];
 
@@ -76,7 +94,7 @@ class MyApp extends StatelessWidget {
 
         //home: HomePage());
         //home: SignUp(testUser));
-        home: CreateProject(testUser));
+        home: PictureTest(camera: camera));
   }
 }
 
@@ -111,8 +129,8 @@ User createUser(bool withProjects) {
 
     // list to store designs
     List<Design> designs = [];
-    Design design1 = new Design(
-        'new bus route', Image.asset('assets/images/route82.jpg'), user, []);
+    Design design1 =
+        new Design('new bus route', 'assets/images/route82.jpg', user, []);
     designs.add(design1);
 
     // 1st project user is involved in

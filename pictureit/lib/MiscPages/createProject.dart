@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -174,10 +175,14 @@ class CreateProjectState extends State<CreateProject> {
                                           changeLeading(leadingOptions, 0)
                                     })
                               }),
-                      Text(
-                        'Yes, I am willing to lead this challenge.',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
-                      )
+                      Container(
+                          margin:
+                              EdgeInsets.symmetric(vertical: globalMargin / 2),
+                          width: MediaQuery.of(context).size.width * 2 / 3,
+                          child: Text(
+                            'Yes, I am willing to lead this challenge.',
+                            style: TextStyle(color: Colors.black, fontSize: 18),
+                          ))
                     ],
                   ),
                   Row(
@@ -193,9 +198,14 @@ class CreateProjectState extends State<CreateProject> {
                                           changeLeading(leadingOptions, 1)
                                     })
                               }),
-                      Text(
-                        'No, I will let someone else lead the project. Just letting you know about it! :)',
-                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      Container(
+                        margin:
+                            EdgeInsets.symmetric(vertical: globalMargin / 2),
+                        width: MediaQuery.of(context).size.width * 2 / 3,
+                        child: Text(
+                          'No, I will let someone else lead the project. Just letting you know about it! :)',
+                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        ),
                       )
                     ],
                   ),
