@@ -3,6 +3,7 @@
 import 'package:camera/camera.dart';
 //import 'package:camera/new/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
@@ -69,6 +70,8 @@ class MyApp extends StatelessWidget {
       null,
       null,
       null,
+      null,
+      DateTime(2019, 6, 29),
       2,
       null,
       'Samtrans Busses',
@@ -103,14 +106,8 @@ class MyApp extends StatelessWidget {
 // function for creating a user with full details to test project
 User createUser(bool withProjects) {
   if (withProjects) {
-    User user = new User(
-        'Dave',
-        'password123',
-        Image.asset(
-          'assets/images/Screenshot (437).png',
-          height: 50,
-        ),
-        'davedave@gmail.com');
+    User user = new User('Dave', 'password123',
+        'assets/images/Screenshot (437).png', 'davedave@gmail.com');
 
     // list to store projects that the user is involved in
     List<Project> projects = [];
@@ -147,6 +144,8 @@ User createUser(bool withProjects) {
         top3,
         top,
         designs,
+        null,
+        DateTime(2019, 6, 29),
         4,
         user,
         'SamTrans Busses',
@@ -164,6 +163,8 @@ User createUser(bool withProjects) {
         null,
         null,
         null,
+        null,
+        DateTime(2019, 6, 29),
         1,
         user,
         'Hot Ice Cream',

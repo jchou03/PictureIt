@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/user.dart';
+import 'package:pictureit/Data/comment.dart';
 
 // class to hold the data of the project
 // holds all user writing and selected ideas
@@ -27,6 +28,10 @@ class Project {
   List<Idea> top;
   // stores the List of Design(s) that are basically all the prototypes
   List<Design> designs;
+  // Stored comments
+  List<Comment> comments;
+  // Time created
+  DateTime time;
 
   // overall project variables (like user creator)
   // stores the stage that the project is on (as a number, 0 index)
@@ -65,7 +70,7 @@ class Project {
 
     stage = 0;
     User defaultUser = new User('David', 'password123',
-        Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
+        'assets/images/Screenshot (437).png', 'email@gmail.com');
     creator = defaultUser;
     title = 'Project Title';
     description = 'Project description';
@@ -86,6 +91,8 @@ class Project {
       List<Idea> top3,
       List<Idea> top,
       List<Design> designs,
+      List<Comment> comments,
+      DateTime time,
       int stage,
       User creator,
       String title,
@@ -100,6 +107,8 @@ class Project {
     this.top3 = top3;
     this.top = top;
     this.designs = designs;
+    this.comments = comments;
+    this.time = time;
     this.stage = stage;
     this.creator = creator;
     this.title = title;
@@ -120,7 +129,7 @@ class Project {
     if (stage == null) this.stage = 0;
     if (creator == null)
       this.creator = new User('David', 'password123',
-          Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
+          'assets/images/Screenshot (437).png', 'email@gmail.com');
     if (title == null) this.title = 'Project Title';
     if (description == null) this.description = 'Project description';
     if (collaborators == null) this.collaborators = [];

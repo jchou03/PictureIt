@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/PostModel.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Comments/InheritedPostModel.dart';
 
 class PostStats extends StatelessWidget {
@@ -7,14 +7,14 @@ class PostStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PostModel postData = InheritedPostModel.of(context).postData;
+    final Project postData = InheritedPostModel.of(context).postData;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         _ShowStat(
           icon: Icons.remove_red_eye,
-          number: postData.views,
+          number: postData.followers.length + postData.collaborators.length,
           color: Colors.green[900],
         ),
       ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pictureit/Comments/InheritedPostModel.dart';
-import 'package:pictureit/Comments/PostModel.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Comments/CommentLists.dart';
 import 'package:pictureit/Comments/PostStats.dart';
 import 'package:pictureit/Comments/UserDetails.dart';
@@ -13,7 +13,7 @@ class PostPageKeys {
 }
 
 class PostPage extends StatelessWidget {
-  final PostModel postData;
+  final Project postData;
 
   const PostPage({Key key, @required this.postData}) : super(key: key);
 
@@ -26,7 +26,6 @@ class PostPage extends StatelessWidget {
         child: ListView(
           key: PostPageKeys.wholePage,
           children: <Widget>[
-            _BannerImage(key: PostPageKeys.bannerImage),
             _NonImageContents(),
           ],
         ),
@@ -40,7 +39,7 @@ class _NonImageContents extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PostModel postData = InheritedPostModel.of(context).postData;
+    final Project postData = InheritedPostModel.of(context).postData;
 
     return Container(
       margin: const EdgeInsets.all(8.0),
@@ -50,7 +49,7 @@ class _NonImageContents extends StatelessWidget {
           _Summary(key: PostPageKeys.summary),
           _MainBody(key: PostPageKeys.mainBody),
           UserDetails(
-            userData: postData.author,
+            userData: postData.creator,
           ),
           SizedBox(height: 8.0),
           PostStats(),
@@ -69,7 +68,7 @@ class _Summary extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Text(
-        InheritedPostModel.of(context).postData.body,
+        InheritedPostModel.of(context).postData.description,
       ),
     );
   }
@@ -83,21 +82,7 @@ class _MainBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
-        InheritedPostModel.of(context).postData.body,
-      ),
-    );
-  }
-}
-
-class _BannerImage extends StatelessWidget {
-  const _BannerImage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Image.asset(
-        InheritedPostModel.of(context).postData.imageURL,
-        fit: BoxFit.fitWidth,
+        InheritedPostModel.of(context).postData.description,
       ),
     );
   }
