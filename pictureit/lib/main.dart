@@ -83,14 +83,8 @@ class MyApp extends StatelessWidget {
 // function for creating a user with full details to test project
 User createUser(bool withProjects) {
   if (withProjects) {
-    User user = new User(
-        'Dave',
-        'password123',
-        Image.asset(
-          'assets/images/Screenshot (437).png',
-          height: 50,
-        ),
-        'davedave@gmail.com');
+    User user = new User('Dave', 'password123',
+        'assets/images/Screenshot (437).png', 'davedave@gmail.com');
 
     // list to store projects that the user is involved in
     List<Project> projects = [];
@@ -111,8 +105,8 @@ User createUser(bool withProjects) {
 
     // list to store designs
     List<Design> designs = [];
-    Design design1 = new Design(
-        'new bus route', Image.asset('assets/images/route82.jpg'), user, []);
+    Design design1 =
+        new Design('new bus route', 'assets/images/route82.jpg', user, []);
     designs.add(design1);
 
     // 1st project user is involved in

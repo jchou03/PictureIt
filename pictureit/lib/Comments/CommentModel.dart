@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
 
 class CommentModel {
-  final UserModel user;
+  final User user;
   final String comment;
   final DateTime time;
 

@@ -113,7 +113,7 @@ class DesigningState extends State<Designing> {
                                     child: Column(
                                       children: <Widget>[
                                         // display the image
-                                        design.getImage(),
+                                        Image.asset(design.getImage()),
                                         // display the text of the image
                                         Container(
                                             padding: EdgeInsets.symmetric(
@@ -134,8 +134,8 @@ class DesigningState extends State<Designing> {
                                                       horizontal:
                                                           globalMargin / 2),
                                                   // pfp of user
-                                                  child: design
-                                                      .getUser()
+                                                  child: Text(design
+                                                      .getUser()),
                                                       .getPicture(),
                                                 ),
                                                 Container(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Comments/CommentModel.dart';
 
 class PostModel {
@@ -10,7 +10,7 @@ class PostModel {
   final DateTime postTime;
   final List<CommentModel> comments;
   final int views;
-  final UserModel author;
+  final User author;
 
   const PostModel({
     @required this.id,

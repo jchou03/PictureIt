@@ -65,7 +65,7 @@ class Project {
 
     stage = 0;
     User defaultUser = new User('David', 'password123',
-        Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
+        'assets/images/Screenshot (437).png', 'email@gmail.com');
     creator = defaultUser;
     title = 'Project Title';
     description = 'Project description';
@@ -120,7 +120,7 @@ class Project {
     if (stage == null) this.stage = 0;
     if (creator == null)
       this.creator = new User('David', 'password123',
-          Image.asset('assets/images/Screenshot (437).png'), 'email@gmail.com');
+          'assets/images/Screenshot (437).png', 'email@gmail.com');
     if (title == null) this.title = 'Project Title';
     if (description == null) this.description = 'Project description';
     if (collaborators == null) this.collaborators = [];

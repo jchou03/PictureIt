@@ -1,33 +1,16 @@
 import 'package:pictureit/Comments/CommentModel.dart';
 import 'package:pictureit/Comments/PostModel.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
+import 'package:flutter/src/widgets/image.dart';
 
 class Test {
-  static final List<UserModel> users = [
-    UserModel(
-      id: "1",
-      name: "Mr. 437",
-      email: "screenshot(437)@png.com",
-      joined: DateTime(2019, 4, 30),
-      posts: 12,
-      image: "assets/images/Screenshot (437).png",
-    ),
-    UserModel(
-      id: "2",
-      name: "Mr. 437",
-      email: "screenshot(437)@png.com",
-      joined: DateTime(2019, 4, 30),
-      posts: 12,
-      image: "assets/images/Screenshot (437).png",
-    ),
-    UserModel(
-      id: "3",
-      name: "Mr. 437",
-      email: "screenshot(437)@png.com",
-      joined: DateTime(2019, 4, 30),
-      posts: 12,
-      image: "assets/images/Screenshot (437).png",
-    ),
+  static final List<User> users = [
+    User("Mr. 437", "1234", "assets/images/Screenshot (437).png",
+        "screenshot(437)@png.com"),
+    User("Mr. 437", "1234", "assets/images/Screenshot (437).png",
+        "screenshot(437)@png.com"),
+    User("Mr. 437", "1234", "assets/images/Screenshot (437).png",
+        "screenshot(437)@png.com"),
   ];
 
   static final String _body =

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
 
 class InheritedUserModel extends InheritedWidget {
-  final UserModel userData;
+  final User userData;
   final Widget child;
 
   InheritedUserModel({Key key, @required this.userData, this.child})

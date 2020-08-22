@@ -5,12 +5,12 @@ import 'package:pictureit/Data/project.dart';
 class User {
   String userName;
   String password;
-  Image picture;
+  String picture;
   String contact;
   List<Project> projects;
   List<Project> followedProjects;
 
-  User(String userName, String password, Image picture, String contact) {
+  User(String userName, String password, String picture, String contact) {
     this.userName = userName;
     this.password = password;
     this.picture = picture;
@@ -19,8 +19,8 @@ class User {
     this.followedProjects = [];
   }
 
-  User.withProjects(String userName, String password, Image picture, String contact,
-      List<Project> projects, List<Project> followedProjects) {
+  User.withProjects(String userName, String password, String picture,
+      String contact, List<Project> projects, List<Project> followedProjects) {
     this.userName = userName;
     this.password = password;
     this.picture = picture;
@@ -37,7 +37,7 @@ class User {
     return password;
   }
 
-  Image getPicture() {
+  String getPicture() {
     return picture;
   }
 
@@ -61,7 +61,7 @@ class User {
     this.password = password;
   }
 
-  void setPicture(Image picture) {
+  void setPicture(String picture) {
     this.picture = picture;
   }
 
