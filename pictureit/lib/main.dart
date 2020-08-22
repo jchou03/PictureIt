@@ -94,7 +94,9 @@ class MyApp extends StatelessWidget {
 
         //home: HomePage());
         //home: SignUp(testUser));
-        home: PictureTest(camera: camera));
+        home: PictureTest(camera: camera)
+        //home: GettingStarted(testUser.getProjects()[0])
+        );
   }
 }
 

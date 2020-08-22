@@ -23,9 +23,15 @@ const borderRadius = 10.0;
 
 class CreateProject extends StatefulWidget {
   User user;
+  Image image;
 
   CreateProject(User user) {
     this.user = user;
+  }
+
+  CreateProject.withImage(User user, String imageLoc) {
+    this.user = user;
+    this.image = Image.asset(imageLoc);
   }
 
   CreateProjectState createState() => CreateProjectState(user);
