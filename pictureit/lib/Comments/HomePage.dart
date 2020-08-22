@@ -27,7 +27,7 @@ class HomePage extends StatelessWidget {
                       ))
                 ],
               )),
-          Image.asset(Test.posts[0].imageURL),
+          Image.asset("assets/images/Screenshot (437).png"),
           ListTile(
               leading: Icon(
             Icons.lock,
@@ -35,6 +35,10 @@ class HomePage extends StatelessWidget {
           ))
         ]));
   }
+}
+
+class ProjectHeader extends StatelessWidget {
+  Widget build(BuildContext context) {}
 }
 
 class CircleImage extends StatelessWidget {

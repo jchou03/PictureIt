@@ -1,6 +1,7 @@
 //import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
@@ -51,6 +52,8 @@ class MyApp extends StatelessWidget {
       null,
       null,
       null,
+      null,
+      DateTime(2019, 6, 29),
       2,
       null,
       'Samtrans Busses',
@@ -121,6 +124,8 @@ User createUser(bool withProjects) {
         top3,
         top,
         designs,
+        null,
+        DateTime(2019, 6, 29),
         4,
         user,
         'SamTrans Busses',
@@ -138,6 +143,8 @@ User createUser(bool withProjects) {
         null,
         null,
         null,
+        null,
+        DateTime(2019, 6, 29),
         1,
         user,
         'Hot Ice Cream',
