@@ -193,7 +193,7 @@ class PictureTestState extends State<PictureTest> {
         (await getTemporaryDirectory()).path,
         '${DateTime.now()}.png',
       );
-
+      print(path);
       await _controller.takePicture(path);
       Navigator.push(
           context,

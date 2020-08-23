@@ -8,6 +8,7 @@ import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
+import 'package:pictureit/MiscPages/pictureTest.dart';
 import 'package:pictureit/Tools/designing.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 
@@ -24,9 +25,11 @@ const borderRadius = 10.0;
 class CreateProject extends StatefulWidget {
   User user;
   Image image;
+  CameraDescription camera;
 
-  CreateProject(User user) {
+  CreateProject(User user, CameraDescription camera) {
     this.user = user;
+    this.camera = camera;
   }
 
   CreateProject.withImage(User user, String imageLoc) {
@@ -34,14 +37,16 @@ class CreateProject extends StatefulWidget {
     this.image = Image.asset(imageLoc);
   }
 
-  CreateProjectState createState() => CreateProjectState(user);
+  CreateProjectState createState() => CreateProjectState(user, camera);
 }
 
 class CreateProjectState extends State<CreateProject> {
   User user;
+  CameraDescription camera;
 
-  CreateProjectState(User user) {
+  CreateProjectState(User user, CameraDescription camera) {
     this.user = user;
+    this.camera = camera;
   }
 
   // image picker variables
@@ -100,7 +105,15 @@ class CreateProjectState extends State<CreateProject> {
                             children: <Widget>[
                               RaisedButton(
                                   color: boxColor,
-                                  onPressed: () => {getImage()},
+                                  onPressed: () => {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    PictureTest(
+                                                        camera: camera,
+                                                        user: user)))
+                                      },
                                   child: Icon(Icons.add_a_photo)),
                               RaisedButton(
                                   color: boxColor,

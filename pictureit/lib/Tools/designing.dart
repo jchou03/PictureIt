@@ -134,9 +134,9 @@ class DesigningState extends State<Designing> {
                                                       horizontal:
                                                           globalMargin / 2),
                                                   // pfp of user
-                                                  child: Text(design
-                                                      .getUser()),
-                                                      .getPicture(),
+                                                  child: Image.asset(design
+                                                      .getUser()
+                                                      .getPicture()),
                                                 ),
                                                 Container(
                                                   // name of user
