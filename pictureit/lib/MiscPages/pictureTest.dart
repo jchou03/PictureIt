@@ -70,7 +70,7 @@ class PictureTestState extends State<PictureTest> {
       await _controller.dispose();
     }
 
-    _controller = CameraController(cameraDescription, ResolutionPreset.medium);
+    _controller = CameraController(cameraDescription, ResolutionPreset.low);
 
     // update UI once controller is updated
     _controller.addListener(() {
@@ -194,7 +194,8 @@ class PictureTestState extends State<PictureTest> {
         '${DateTime.now()}.png',
       );
       print(path);
-      await _controller.takePicture(path);
+      //await _controller.takePicture(path);
+      print('took picture');
       Navigator.push(
           context,
           MaterialPageRoute(
@@ -202,6 +203,7 @@ class PictureTestState extends State<PictureTest> {
     } catch (e) {
       print(e);
     }
+    print('made it to the end of _onCapturePressed()');
   }
 
   Widget build(BuildContext context) {
