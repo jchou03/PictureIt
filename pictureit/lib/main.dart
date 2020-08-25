@@ -72,11 +72,14 @@ class MyApp extends StatelessWidget {
           // closer together (more dense) than on mobile platforms.
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        //home: ProjectHome(testProject));
+      //home: ProjectHome(testProject));
 
-        //home: HomePage());
-        //home: SignUp(testUser));
-        home: CreateProject(testUser));
+      //home: HomePage());
+      //home: SignUp(testUser));
+      home: CreateProject(testUser));
+
+
+    
   }
 }
 
