@@ -106,14 +106,11 @@ class CreateDesignState extends State<CreateDesign> {
                         User testUser = new User(
                             'name',
                             'password123',
-                            Image.asset(
-                              "assets/images/Screenshot (437).png",
-                              height: 50,
-                            ),
+                            "assets/images/Screenshot (437).png",
                             'contactMe@gmail.com');
                         List<Comment> comments = [];
-                        Design design = new Design(myController.text,
-                            Image.file(image), testUser, comments);
+                        Design design = new Design(
+                            myController.text, image.path, testUser, comments);
                         // update designs with new design
                         designs.add(design);
                         project.setDesigns(designs);

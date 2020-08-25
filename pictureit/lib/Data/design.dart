@@ -5,12 +5,12 @@ import 'package:pictureit/Data/user.dart';
 // this class is for holding data for the prototype/design
 class Design {
   String title;
-  Image image;
+  String image;
   User user;
   int likes;
   List<Comment> comments;
 
-  Design(String title, Image image, User user, List<Comment> comments) {
+  Design(String title, String image, User user, List<Comment> comments) {
     this.title = title;
     this.image = image;
     this.user = user;
@@ -22,7 +22,7 @@ class Design {
     return title;
   }
 
-  Image getImage() {
+  String getImage() {
     return image;
   }
 
@@ -42,7 +42,7 @@ class Design {
     this.title = title;
   }
 
-  void setImage(Image image) {
+  void setImage(String image) {
     this.image = image;
   }
 

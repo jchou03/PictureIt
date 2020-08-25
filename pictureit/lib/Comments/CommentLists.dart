@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/CommentModel.dart';
+import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Comments/InheritedPostModel.dart';
 import 'package:pictureit/Comments/UserDetails.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
 
 class CommentsListKeyPrefix {
   static final String singleComment = "Comment";
@@ -16,7 +16,7 @@ class CommentsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<CommentModel> comments =
+    final List<Comment> comments =
         InheritedPostModel.of(context).postData.comments;
 
     return Padding(
@@ -44,7 +44,7 @@ class _SingleComment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CommentModel commentData =
+    final Comment commentData =
         InheritedPostModel.of(context).postData.comments[index];
 
     return Container(
@@ -58,7 +58,7 @@ class _SingleComment extends StatelessWidget {
             userData: commentData.user,
           ),
           Text(
-            commentData.comment,
+            commentData.text,
             key: ValueKey("${CommentsListKeyPrefix.commentText} $index"),
             textAlign: TextAlign.left,
           ),

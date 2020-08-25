@@ -4,10 +4,12 @@ import 'package:pictureit/Data/user.dart';
 class Comment {
   User user;
   String text;
+  DateTime time;
 
-  Comment(User user, String text) {
+  Comment(User user, String text, DateTime time) {
     this.user = user;
     this.text = text;
+    this.time = time;
   }
 
   User getUser() {
@@ -16,6 +18,10 @@ class Comment {
 
   String getText() {
     return text;
+  }
+
+  DateTime getTime() {
+    return time;
   }
 
   void setUser(User user) {

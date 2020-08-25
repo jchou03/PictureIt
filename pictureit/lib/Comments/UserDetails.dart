@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/UserModel.dart';
+import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Comments/InheritedUserModel.dart';
 
 bool isLandscape(BuildContext context) =>
     MediaQuery.of(context).orientation == Orientation.landscape;
 
 class UserDetails extends StatelessWidget {
-  final UserModel userData;
+  final User userData;
 
   const UserDetails({Key key, @required this.userData}) : super(key: key);
 
@@ -26,7 +26,7 @@ class _UserNameAndEmail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel userData = InheritedUserModel.of(context).userData;
+    final User userData = InheritedUserModel.of(context).userData;
     final TextStyle nameTheme = Theme.of(context).textTheme.subtitle;
     final TextStyle emailTheme = Theme.of(context).textTheme.body1;
     final int flex = isLandscape(context) ? 10 : 5;
@@ -39,9 +39,9 @@ class _UserNameAndEmail extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(userData.name, style: nameTheme),
+            Text(userData.userName, style: nameTheme),
             SizedBox(height: 2.0),
-            Text(userData.email, style: emailTheme),
+            Text(userData.contact, style: emailTheme),
           ],
         ),
       ),
@@ -54,10 +54,10 @@ class _UserImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserModel userData = InheritedUserModel.of(context).userData;
+    final User userData = InheritedUserModel.of(context).userData;
     return Expanded(
       flex: 1,
-      child: CircleAvatar(backgroundImage: AssetImage(userData.image)),
+      child: CircleAvatar(backgroundImage: AssetImage(userData.picture)),
     );
   }
 }

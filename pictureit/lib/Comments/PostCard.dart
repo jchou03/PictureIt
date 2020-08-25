@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pictureit/Comments/PostModel.dart';
+import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Comments/PostPage.dart';
 import 'package:pictureit/Comments/InheritedPostModel.dart';
 import 'package:pictureit/Comments/UserDetails.dart';
@@ -9,7 +9,7 @@ bool _isLandscape(BuildContext context) =>
     MediaQuery.of(context).orientation == Orientation.landscape;
 
 class PostCard extends StatelessWidget {
-  final PostModel postData;
+  final Project postData;
   const PostCard({Key key, @required this.postData}) : super(key: key);
 
   @override
@@ -67,12 +67,12 @@ class _PostTitleAndSummary extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Getting data from inherited widget
-    final PostModel postData = InheritedPostModel.of(context).postData;
+    final Project postData = InheritedPostModel.of(context).postData;
     final TextStyle titleTheme = Theme.of(context).textTheme.title;
     final TextStyle summaryTheme = Theme.of(context).textTheme.body1;
     // using data retrieved from inherited widget
     final String title = postData.title;
-    final String summary = postData.body;
+    final String summary = postData.description;
     final int flex = _isLandscape(context) ? 5 : 3;
 
     return Expanded(
@@ -104,11 +104,11 @@ class _PostDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final PostModel postData = InheritedPostModel.of(context).postData;
+    final Project postData = InheritedPostModel.of(context).postData;
 
     return Row(
       children: <Widget>[
-        Expanded(flex: 3, child: UserDetails(userData: postData.author)),
+        Expanded(flex: 3, child: UserDetails(userData: postData.creator)),
         Expanded(flex: 1, child: PostStats()),
       ],
     );
