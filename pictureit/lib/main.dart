@@ -84,21 +84,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     print(testProject.getStage());
     return MaterialApp(
-        title: 'PictureIt',
-        //routes: {'/': (context) => MyApp()},
-        theme: ThemeData(
-          primaryColor: headingColor,
-          // This makes the visual density adapt to the platform that you run
-          // the app on. For desktop platforms, the controls will be smaller and
-          // closer together (more dense) than on mobile platforms.
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        //home: ProjectHome(testProject));
+      title: 'PictureIt',
+      //routes: {'/': (context) => MyApp()},
+      theme: ThemeData(
+        primaryColor: headingColor,
+        // This makes the visual density adapt to the platform that you run
+        // the app on. For desktop platforms, the controls will be smaller and
+        // closer together (more dense) than on mobile platforms.
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      //home: ProjectHome(testProject));
 
-        //home: HomePage());
-        //home: SignUp(testUser));
-        //home: PictureTest(camera: camera, user: testUser)
-        home: CreateProject(testUser, camera));
+      //home: HomePage());
+      //home: SignUp(testUser));
+      home: CreateProject(testUser, camera),
+      //)
+      //home: GettingStarted(testUser.getProjects()[0])
+    );
   }
 }
 
