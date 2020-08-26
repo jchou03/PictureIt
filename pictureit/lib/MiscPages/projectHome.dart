@@ -20,6 +20,7 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class ProjectHome extends StatefulWidget {
+  static const String id = 'projectHome_screen';
   Project project;
 
   ProjectHome(Project project) {

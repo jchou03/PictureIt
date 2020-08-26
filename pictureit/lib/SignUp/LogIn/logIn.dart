@@ -33,8 +33,8 @@ class LogInState extends State<LogIn> {
 
     User user;
     final auth = FirebaseAuth.instance;
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
+    String email;
+    String password;
 
 /*
     LogInState(User user) {
@@ -64,7 +64,7 @@ class LogInState extends State<LogIn> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // title for the section
-                  Text('Sign Up',
+                  Text('Log In',
                       style: TextStyle(color: Colors.black, fontSize: 35)),
                   // first round of text (prompt and text box)
                   Container(
@@ -86,7 +86,9 @@ class LogInState extends State<LogIn> {
                           margin: EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
                           child: TextField(
                             keyboardType: TextInputType.emailAddress,
-                            controller: emailController,
+                           onChanged: (value) {
+                             email = value;
+                           },
                             minLines: 1,
                             maxLines: 1,
                             autocorrect: true,
@@ -113,7 +115,9 @@ class LogInState extends State<LogIn> {
                           margin: EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
                           child: TextField(
                             obscureText: true,
-                            controller: passwordController,
+                            onChanged: (value) {
+                              password = value;
+                            },
                             minLines: 1,
                             maxLines: 1,
                             autocorrect: true,
@@ -140,12 +144,8 @@ class LogInState extends State<LogIn> {
                           onPressed: () async {
                             // implemented login functionality
 
-                            
-                  
-                            user.setContact(emailController.text);
-                            user.setPassword(passwordController.text);
                             try {
-                                  final userLogIn = await auth.signInWithEmailAndPassword(email: user.getContact(), password: user.getPassword());
+                                  final userLogIn = await auth.signInWithEmailAndPassword(email: email, password: password);
                               if (user != null) {
                                  Navigator.push(context,MaterialPageRoute(builder: (context) => ProjectHome(Project())));
                                  // other code from course used .pushNamed

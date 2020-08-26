@@ -194,7 +194,7 @@ class PictureTestState extends State<PictureTest> {
         '${DateTime.now()}.png',
       );
       print(path);
-      //await _controller.takePicture(path);
+      await _controller.takePicture(path);
       print('took picture');
       Navigator.push(
           context,
