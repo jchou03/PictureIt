@@ -9,6 +9,7 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/MiscPages/pictureTest.dart';
+import 'package:pictureit/MiscPages/takePicture.dart';
 import 'package:pictureit/Tools/designing.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 
@@ -63,6 +64,19 @@ class CreateProjectState extends State<CreateProject> {
     });
   }
 
+  // function for initializing the camera
+  void _showCamera() async {
+    final cameras = await availableCameras();
+    final camera = cameras.first;
+
+    final result = await Navigator.push(context,
+        MaterialPageRoute(builder: (context) => TakePicture(camera: camera)));
+
+    /*setState(() {
+      _path = result;
+    });*/
+  }
+
   // variables for text retrieval
   String title = 'null title';
   String description = 'null description';
@@ -106,13 +120,14 @@ class CreateProjectState extends State<CreateProject> {
                               RaisedButton(
                                   color: boxColor,
                                   onPressed: () => {
-                                        Navigator.push(
+                                        _showCamera()
+                                        /*Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
                                                     PictureTest(
                                                         camera: camera,
-                                                        user: user)))
+                                                        user: user)))*/
                                       },
                                   child: Icon(Icons.add_a_photo)),
                               RaisedButton(

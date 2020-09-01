@@ -186,6 +186,7 @@ class PictureTestState extends State<PictureTest> {
   // function for taking the picture
   void _onCapturePressed(context) async {
     try {
+      await _initCameraController(cameras[cameraIndex]).then((void v) {});
       // Attempt to take a picture and log where it's been saved
       final path = join(
         // In this example, store the picture in the temp directory. Find
@@ -193,6 +194,7 @@ class PictureTestState extends State<PictureTest> {
         (await getTemporaryDirectory()).path,
         '${DateTime.now()}.png',
       );
+
       print(path);
       await _controller.takePicture(path);
       print('took picture');
