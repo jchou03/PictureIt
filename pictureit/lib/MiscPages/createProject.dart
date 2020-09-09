@@ -26,11 +26,9 @@ const borderRadius = 10.0;
 class CreateProject extends StatefulWidget {
   User user;
   Image image;
-  CameraDescription camera;
 
-  CreateProject(User user, CameraDescription camera) {
+  CreateProject(User user) {
     this.user = user;
-    this.camera = camera;
   }
 
   CreateProject.withImage(User user, String imageLoc) {
@@ -38,16 +36,14 @@ class CreateProject extends StatefulWidget {
     this.image = Image.asset(imageLoc);
   }
 
-  CreateProjectState createState() => CreateProjectState(user, camera);
+  CreateProjectState createState() => CreateProjectState(user);
 }
 
 class CreateProjectState extends State<CreateProject> {
   User user;
-  CameraDescription camera;
 
-  CreateProjectState(User user, CameraDescription camera) {
+  CreateProjectState(User user) {
     this.user = user;
-    this.camera = camera;
   }
 
   // image picker variables
@@ -119,16 +115,7 @@ class CreateProjectState extends State<CreateProject> {
                             children: <Widget>[
                               RaisedButton(
                                   color: boxColor,
-                                  onPressed: () => {
-                                        _showCamera()
-                                        /*Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    PictureTest(
-                                                        camera: camera,
-                                                        user: user)))*/
-                                      },
+                                  onPressed: () => {_showCamera()},
                                   child: Icon(Icons.add_a_photo)),
                               RaisedButton(
                                   color: boxColor,

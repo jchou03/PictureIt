@@ -97,9 +97,9 @@ class MyApp extends StatelessWidget {
 
         //home: HomePage());
         //home: SignUp(testUser));
-        //home: PictureTest(camera: camera, user: testUser)
-        //home: CreateProject(testUser, camera));
-        home: LogIn());
+        home: CreateProject(testUser)
+        //home: LogIn()
+        );
   }
 }
 
@@ -181,6 +181,7 @@ User createUser(bool withProjects) {
 
     return user;
   }
+  return null;
 }
 
 // returns a list of strings where each idea is seperated by a new line (this even works for longer inputs where the text wraps, but there isn't a direct new line input)

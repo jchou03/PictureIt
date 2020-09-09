@@ -31,9 +31,9 @@ class TakePictureState extends State<TakePicture> {
 
       final path =
           join((await getTemporaryDirectory()).path, '${DateTime.now()}.png');
-
+      print("path is: " + path);
       await _cameraController.takePicture(path);
-
+      print("taken picture");
       Navigator.pop(context, path);
     } catch (e) {
       print(e);
@@ -42,19 +42,19 @@ class TakePictureState extends State<TakePicture> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('PictureIt'),
-        ),
-        body: FutureBuilder(
-          future: _initializeCameraControllerFuture,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.done) {
-              return CameraPreview(_cameraController);
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
-        ));
+    return Stack(children: <Widget>[
+      FutureBuilder(
+        future: _initializeCameraControllerFuture,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done) {
+            return CameraPreview(_cameraController);
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
+      FloatingActionButton(
+          onPressed: () => {_takePicture(context)}, child: Icon(Icons.camera))
+    ]);
   }
 }
