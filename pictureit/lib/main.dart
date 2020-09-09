@@ -99,7 +99,7 @@ class MyApp extends StatelessWidget {
         //home: SignUp(testUser));
         //home: PictureTest(camera: camera, user: testUser)
         //home: CreateProject(testUser, camera));
-        home: LogIn());
+        home: HomePage());
   }
 }
 

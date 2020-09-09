@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
-import 'package:pictureit/Data/project.dart';
 
 class InheritedPostModel extends InheritedWidget {
   final Project postData;

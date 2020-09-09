@@ -40,14 +40,14 @@ Repudiandae sint soluta ullam sunt eos id laborum. Veniam molestiae ipsa odit so
   static final List<Idea> top = [Idea("idea1")];
 
   static final List<Design> top4 = [
-    Design("idea1", "assets/images/Screenshot (437).png", users[0], _comments),
-    Design("idea2", "assets/images/Screenshot (437).png", users[0], _comments),
-    Design("idea3", "assets/images/Screenshot (437).png", users[0], _comments),
-    Design("idea4", "assets/images/Screenshot (437).png", users[0], _comments),
-    Design("idea5", "assets/images/Screenshot (437).png", users[0], _comments),
+    Design("idea1", "assets/images/Screenshot (437).png", users[0], comment),
+    Design("idea2", "assets/images/Screenshot (437).png", users[0], comment),
+    Design("idea3", "assets/images/Screenshot (437).png", users[0], comment),
+    Design("idea4", "assets/images/Screenshot (437).png", users[0], comment),
+    Design("idea5", "assets/images/Screenshot (437).png", users[0], comment),
   ];
 
-  static final List<Comment> _comments = <Comment>[
+  static final List<Comment> comment = <Comment>[
     Comment(
       users[0],
       "Et hic et sequi inventore. Molestiae laboriosam commodi exercitationem eum. ",
@@ -95,7 +95,7 @@ Repudiandae sint soluta ullam sunt eos id laborum. Veniam molestiae ipsa odit so
     ),
   ];
 
-  List<Project> projects = [
+  static final List<Project> posts = [
     Project.specific(
       'I first learned about this problem as I noticed that the busses were empty every day',
       'I know that schoolchildren are affected becasue it pulls resources away from the routes that they need more busses for',
@@ -107,7 +107,7 @@ Repudiandae sint soluta ullam sunt eos id laborum. Veniam molestiae ipsa odit so
       top3,
       top,
       top4,
-      _comments,
+      comment,
       DateTime(2019, 6, 29),
       5,
       users[0],

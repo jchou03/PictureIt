@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pictureit/Data/comment.dart';
 import 'package:pictureit/Comments/InheritedPostModel.dart';
 import 'package:pictureit/Comments/UserDetails.dart';
-import 'package:pictureit/Data/user.dart';
 
 class CommentsListKeyPrefix {
   static final String singleComment = "Comment";
