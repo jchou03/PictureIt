@@ -95,17 +95,12 @@ class MyApp extends StatelessWidget {
         ),
         //home: ProjectHome(testProject));
 
-        //home: HomePage());
-        //home: SignUp(testUser));
-<<<<<<< HEAD
-        //home: PictureTest(camera: camera, user: testUser)
-        //home: CreateProject(testUser, camera));
-        home: HomePage());
-=======
-        home: CreateProject(testUser)
-        //home: LogIn()
+        //home: HomePage()
+        //home: SignUp(testUser)
+        home: LogIn()
+        //home: CreateProject(testUser)
+        //
         );
->>>>>>> b66decc064eb1b6a49275e3115f5b43b24162447
   }
 }
 

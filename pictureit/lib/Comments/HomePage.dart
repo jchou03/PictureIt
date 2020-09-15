@@ -57,20 +57,20 @@ class PostState extends State<Post> {
         ),
       ),
       ListTile(
-          contentPadding: EdgeInsets.all(10.0),
-          leading: Row(children: [
-            CircleImage(),
-            Container(
-                padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
-                child: Text(
-                  Test.users[0].userName,
-                  style: TextStyle(
-                      fontFamily: 'Robot',
-                      fontSize: 17.0,
-                      fontWeight: FontWeight.w600),
-                ))
-          ]),
-          trailing: Row(children: [
+        contentPadding: EdgeInsets.all(10.0),
+        leading: Row(children: [
+          CircleImage(),
+          Container(
+              padding: EdgeInsets.fromLTRB(15.0, 0.0, 0.0, 0.0),
+              child: Text(
+                Test.users[0].userName,
+                style: TextStyle(
+                    fontFamily: 'Robot',
+                    fontSize: 17.0,
+                    fontWeight: FontWeight.w600),
+              ))
+        ]), /*
+        trailing: Row(children: [
             IconButton(
               icon: Icon(Icons.comment, color: Colors.grey),
               onPressed: () {
@@ -89,7 +89,8 @@ class PostState extends State<Post> {
                 });
               },
             ),
-          ]))
+          ])*/
+      )
     ]));
   }
 }

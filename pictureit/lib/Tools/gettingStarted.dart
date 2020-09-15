@@ -22,30 +22,21 @@ class GettingStarted extends StatelessWidget {
   final auth = FirebaseAuth.instance;
   FirebaseUser loggedInUser;
 
-
-  @override
-  void initState() {
-    //super.initState();
-    // above line of code used in course video, but for me it gives an error
-
-    getCurrentUser();
-  }
+  // no initstate method because it is a stateless widget (getCurrentUser() is called in build())
 
   void getCurrentUser() async {
     try {
-    final user = await auth.currentUser();
-    if (user != null) {
-      loggedInUser = user;
-      print(loggedInUser.email);
-
-    }
-    }
-    catch (e) {
+      final firebaseUser = await auth.currentUser();
+      if (firebaseUser != null) {
+        loggedInUser = firebaseUser;
+        print("in GettingStarted and the logged in user's email is: " +
+            loggedInUser.email);
+      }
+    } catch (e) {
       print(e);
-
     }
-
   }
+
   // project data storage
   Project project;
   // text controller for the different text fields
@@ -62,6 +53,7 @@ class GettingStarted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    getCurrentUser();
     return Scaffold(
         appBar: AppBar(title: Text('PictureIt')),
         body: Container(

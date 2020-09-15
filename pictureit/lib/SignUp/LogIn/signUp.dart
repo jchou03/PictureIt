@@ -6,7 +6,6 @@ import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
 const headingColor = Colors.white;
@@ -18,36 +17,30 @@ const globalPadding = 15.0;
 const globalMargin = 15.0;
 const borderRadius = 10.0;
 
-
 class SignUp extends StatefulWidget {
   @override
-  
   User user;
 
-  SignUp (User user) {
+  SignUp(User user) {
     this.user = user;
-    
   }
   SignUpState createState() => SignUpState(user);
- 
 }
 
 class SignUpState extends State<SignUp> {
+  User user;
+  final auth = FirebaseAuth.instance;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-    User user;
-    final auth = FirebaseAuth.instance;
-    TextEditingController nameController = TextEditingController();
-    TextEditingController emailController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
-    SignUpState(User user) {
-      this.user = user;
-       nameController.text = user.getUserName();
-       emailController.text = user.getContact();
-       passwordController.text = user.getPassword();
-      
-    }
-    Widget build(BuildContext context) {
+  SignUpState(User user) {
+    this.user = user;
+    nameController.text = user.getUserName();
+    emailController.text = user.getContact();
+    passwordController.text = user.getPassword();
+  }
+  Widget build(BuildContext context) {
     return Scaffold(
         // appbar is the header
         appBar: AppBar(
@@ -60,8 +53,7 @@ class SignUpState extends State<SignUp> {
             color: backgroundColor,
             width: MediaQuery.of(context).size.width,
             // listview so it can scroll
-            child: ListView(
-              children: <Widget>[
+            child: ListView(children: <Widget>[
               // column of content
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,40 +63,40 @@ class SignUpState extends State<SignUp> {
                       style: TextStyle(color: Colors.black, fontSize: 35)),
                   // first round of text (prompt and text box)
                   Container(
-                      
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                        
-                          // text box for user input
-                          Container(
-                            color: boxColor,
-                            margin:
-                                EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
-                            child: TextField(
-                              controller: nameController,
-                              minLines: 1,
-                              maxLines: 1,
-                              autocorrect: true,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText:
-                                      'Name:'),
-                            ),
-                          ),
-                        ],
-                      )),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      // text box for user input
+                      Container(
+                        color: boxColor,
+                        margin: EdgeInsets.symmetric(
+                            vertical: globalPadding,
+                            horizontal: globalPadding * 3),
+                        child: TextField(
+                          textAlign: TextAlign.center,
+                          controller: nameController,
+                          minLines: 1,
+                          maxLines: 1,
+                          autocorrect: true,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(), hintText: 'Name:'),
+                        ),
+                      ),
+                    ],
+                  )),
 
                   // section for second prompt
                   Container(
                     child: Column(
                       children: <Widget>[
-                   
                         // text field for user input
                         Container(
                           color: boxColor,
-                          margin: EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
+                          margin: EdgeInsets.symmetric(
+                              vertical: globalPadding,
+                              horizontal: globalPadding * 3),
                           child: TextField(
+                            textAlign: TextAlign.center,
                             keyboardType: TextInputType.emailAddress,
                             controller: emailController,
                             minLines: 1,
@@ -112,8 +104,7 @@ class SignUpState extends State<SignUp> {
                             autocorrect: true,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText:
-                                    'Email:'),
+                                hintText: 'Email:'),
                           ),
                         ),
                       ],
@@ -122,16 +113,17 @@ class SignUpState extends State<SignUp> {
                   // second text box
                   // text box for user input
 
-
                   Container(
                     child: Column(
                       children: <Widget>[
-                   
                         // text field for user input
                         Container(
                           color: boxColor,
-                          margin: EdgeInsets.symmetric(vertical: globalPadding, horizontal: globalPadding * 3),
+                          margin: EdgeInsets.symmetric(
+                              vertical: globalPadding,
+                              horizontal: globalPadding * 3),
                           child: TextField(
+                            textAlign: TextAlign.center,
                             obscureText: true,
                             controller: passwordController,
                             minLines: 1,
@@ -139,8 +131,7 @@ class SignUpState extends State<SignUp> {
                             autocorrect: true,
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                hintText:
-                                    'Password:'),
+                                hintText: 'Password:'),
                           ),
                         ),
                       ],
@@ -149,7 +140,6 @@ class SignUpState extends State<SignUp> {
                   // third text box
                   // text box for user input
 
-                  
                   // Button for moving to the next page
                   Container(
                       margin: EdgeInsets.symmetric(vertical: globalMargin),
@@ -158,26 +148,53 @@ class SignUpState extends State<SignUp> {
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
                           onPressed: () async {
-                            // implemented registration functionality
+                            print("Sign up name is: " + nameController.text);
+                            print("Sign up email is: " + emailController.text);
+                            print("Sign up password is: " +
+                                passwordController.text);
+                            // set user data to match what is put in
                             user.setuserName(nameController.text);
                             user.setContact(emailController.text);
                             user.setPassword(passwordController.text);
+
+                            // implemented registration functionality
                             try {
-                              final newUser = await auth.createUserWithEmailAndPassword(email: user.getContact(), password: user.getPassword());
+                              final newUser =
+                                  await auth.createUserWithEmailAndPassword(
+                                      email: emailController.text,
+                                      password: passwordController.text);
                               if (newUser != null) {
-                                 Navigator.push(context,MaterialPageRoute(builder: (context) => GettingStarted(Project())));
-                                 // other code from course used .pushNamed
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          GettingStarted(Project()),
+                                    ));
+                              }
+                            } catch (e) {
+                              print(e);
+                            }
+                            /*
+                            try {
+                              final newUser =
+                                  await auth.createUserWithEmailAndPassword(
+                                      email: user.getContact(),
+                                      password: user.getPassword());
+                              if (newUser != null) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GettingStarted(Project())));
+                                // other code from course used .pushNamed
                               }
 
                               // fix: if try to sign up with an existing account email, it won't let you continue to sign up with a new email after.
                               // The correct email is stored in Firebase, but does not move on to the Getting Started Page
 
-                            }
-                            catch(e) {
+                            } catch (e) {
                               print(e);
-
-                            }
-                           
+                            }*/
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

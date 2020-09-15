@@ -19,6 +19,15 @@ class User {
     this.followedProjects = [];
   }
 
+  User.empty() {
+    this.userName = "";
+    this.password = "";
+    this.picture = null;
+    this.contact = "";
+    this.projects = [];
+    this.followedProjects = [];
+  }
+
   User.withProjects(String userName, String password, String picture,
       String contact, List<Project> projects, List<Project> followedProjects) {
     this.userName = userName;

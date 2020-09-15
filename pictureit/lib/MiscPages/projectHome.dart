@@ -1,4 +1,5 @@
 // color setups
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
@@ -34,6 +35,29 @@ class ProjectHomeState extends State<ProjectHome> {
   Project project;
   // List to store the column of raised buttons for the stages
   List<RaisedButton> stages = [];
+
+  final auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+
+  @override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+
+  void getCurrentUser() async {
+    print("logged in");
+    try {
+      final firebaseUser = await auth.currentUser();
+      if (firebaseUser != null) {
+        loggedInUser = firebaseUser;
+        print("in GettingStarted and the logged in user's email is: " +
+            loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   ProjectHomeState(Project project) {
     this.project = project;
