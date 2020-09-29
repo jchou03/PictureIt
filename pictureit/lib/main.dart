@@ -96,7 +96,7 @@ class MyApp extends StatelessWidget {
         //home: ProjectHome(testProject));
 
         //home: HomePage()
-        //home: SignUp(testUser)
+        //home: SignUp()
         home: LogIn()
         //home: CreateProject(testUser)
         //

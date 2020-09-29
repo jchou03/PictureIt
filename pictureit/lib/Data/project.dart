@@ -3,6 +3,7 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Data/comment.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // class to hold the data of the project
 // holds all user writing and selected ideas

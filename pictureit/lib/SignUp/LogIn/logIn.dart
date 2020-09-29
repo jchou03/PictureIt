@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
@@ -90,6 +91,9 @@ class LogInState extends State<LogIn> {
                                   onChanged: (value) {
                                     email = value;
                                   },
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.deny("r[ ]")
+                                  ],
                                   minLines: 1,
                                   maxLines: 1,
                                   autocorrect: true,
@@ -152,7 +156,8 @@ class LogInState extends State<LogIn> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  ProjectHome(Project())));
+                                                  // used to be ProjectHome, but changed for firebase data testing
+                                                  GettingStarted(Project())));
                                       // other code from course used .pushNamed
                                     }
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/empathy.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -20,6 +21,7 @@ const borderRadius = 10.0;
 // class for the getting started page for the problem solving tools
 class GettingStarted extends StatelessWidget {
   final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
   FirebaseUser loggedInUser;
 
   // no initstate method because it is a stateless widget (getCurrentUser() is called in build())
@@ -108,6 +110,10 @@ class GettingStarted extends StatelessWidget {
                         project
                             .setGettingStarted(gettingStartedController.text);
                         print(project.getGettingStarted());
+                        firestore.collection('GettingStarted text').add({
+                          'PastKnowledge': gettingStartedController.text,
+                          'User': loggedInUser.email,
+                        });
                         Navigator.push(
                             context,
                             MaterialPageRoute(
