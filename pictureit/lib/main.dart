@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
   List<Design> designs = [];
 
   // test input project
-  Project testProject = new Project.specific(
+  /*Project testProject = new Project.specific(
       'test test',
       'empathy 1 test',
       'empathy 2 test',
@@ -75,14 +75,14 @@ class MyApp extends StatelessWidget {
       2,
       null,
       'Samtrans Busses',
-      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');
+      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');*/
   // test user
   User testUser = createUser(true);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(testProject.getStage());
+    //print(testProject.getStage());
     return MaterialApp(
         title: 'PictureIt',
         //routes: {'/': (context) => MyApp()},
@@ -105,6 +105,9 @@ class MyApp extends StatelessWidget {
 }
 
 // function for creating a user with full details to test project
+
+// WARNING: DON'T USE createUser() FUNCTION! (due to implementing database changes)
+
 User createUser(bool withProjects) {
   if (withProjects) {
     User user = new User('Dave', 'password123',
@@ -134,7 +137,7 @@ User createUser(bool withProjects) {
     designs.add(design1);
 
     // 1st project user is involved in
-    Project project1 = new Project.specific(
+    /*Project project1 = new Project.specific(
         'I first learned about this problem as I noticed that the busses were empty every day',
         'I know that schoolchildren are affected becasue it pulls resources away from the routes that they need more busses for',
         'I interviewed 3 people, one student, one buisness worker, and a banana. After talking through all of them, they feel like they bus routes are poorly designed',
@@ -179,7 +182,7 @@ User createUser(bool withProjects) {
 
     user.setProjects(projects);
     user.setFollowedProjects(followedProjects);
-
+*/
     return user;
   }
   return null;

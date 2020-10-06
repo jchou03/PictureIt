@@ -96,7 +96,8 @@ Repudiandae sint soluta ullam sunt eos id laborum. Veniam molestiae ipsa odit so
   ];
 
   static final List<Project> posts = [
-    Project.specific(
+    Project()
+    /*Project.specific(
       'I first learned about this problem as I noticed that the busses were empty every day',
       'I know that schoolchildren are affected becasue it pulls resources away from the routes that they need more busses for',
       'I interviewed 3 people, one student, one buisness worker, and a banana. After talking through all of them, they feel like they bus routes are poorly designed',
@@ -113,6 +114,6 @@ Repudiandae sint soluta ullam sunt eos id laborum. Veniam molestiae ipsa odit so
       users[0],
       "ScreenShot",
       "I can't take a sreenshot while sitting on the bench!",
-    )
+    )*/
   ];
 }

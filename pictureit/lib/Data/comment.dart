@@ -32,3 +32,5 @@ class Comment {
     this.text = text;
   }
 }
+
+// working on formatting Firebase to store all the data types then work on uploading them to the database

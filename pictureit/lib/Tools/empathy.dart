@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/defining.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -15,6 +17,10 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Empathy extends StatelessWidget {
+  final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
+  FirebaseUser loggedInUser;
+
   Project project;
   // set up text controllers
   TextEditingController empathy1Controller = TextEditingController();
@@ -164,6 +170,15 @@ class Empathy extends StatelessWidget {
                             // save the new text to the project
                             project.setEmpathy1(empathy1Controller.text);
                             project.setEmpathy2(empathy2Controller.text);
+
+                            firestore
+                                .collection('Projects')
+                                .document(project.getFirebaseDocumentId())
+                                .setData({
+                              'empathy1': empathy1Controller.text,
+                              'empathy2': empathy2Controller.text,
+                            }, merge: true);
+
                             if (project.getStage() < 1) {
                               project.setStage(1);
                             }

@@ -4,10 +4,12 @@ import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Data/comment.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pictureit/Tools/gettingStarted.dart';
 
 // class to hold the data of the project
 // holds all user writing and selected ideas
 class Project {
+  String firebaseDocumentId;
   // each variable will hold the value that the user puts into each page
   // stores string value of text on GettingStarted page
   String gettingStarted;
@@ -58,6 +60,7 @@ class Project {
   List<User> followers;
 
   Project() {
+    firebaseDocumentId = "";
     gettingStarted = "";
     empathy1 = "";
     empathy2 = "";
@@ -82,6 +85,7 @@ class Project {
 
   // specific constructor which lets you specify specific values for items
   Project.specific(
+      String firebaseDocumentId,
       String gettingStarted,
       String empathy1,
       String empathy2,
@@ -98,6 +102,7 @@ class Project {
       User creator,
       String title,
       String description) {
+    this.firebaseDocumentId = firebaseDocumentId;
     this.gettingStarted = gettingStarted;
     this.empathy1 = empathy1;
     this.empathy2 = empathy2;
@@ -140,6 +145,10 @@ class Project {
   }
 
   // getters for each variable
+  String getFirebaseDocumentId() {
+    return firebaseDocumentId;
+  }
+
   String getGettingStarted() {
     return gettingStarted;
   }
@@ -209,6 +218,10 @@ class Project {
   }
 
   // setters for each variable
+  void setFirebaseDocumentId(String firebaseDocumentId) {
+    this.firebaseDocumentId = firebaseDocumentId;
+  }
+
   void setGettingStarted(String gettingStarted) {
     this.gettingStarted = gettingStarted;
   }
@@ -271,5 +284,26 @@ class Project {
 
   void setFollowers(List<User> followers) {
     this.followers = followers;
+  }
+
+  Map toJson() {
+    return {
+      "gettingStarted": gettingStarted,
+      "empathy1": empathy1,
+      "empathy2": empathy2,
+      "defining1": defining1,
+      "defining2": defining2,
+      "brainstorming": brainstorming,
+      "ideas": ideas,
+      "top3": top3,
+      "top": top,
+      "designs": designs,
+      "stage": stage,
+      "creator": creator,
+      "title": title,
+      "description": description,
+      "collaborators": collaborators,
+      "followers": followers,
+    };
   }
 }

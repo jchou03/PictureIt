@@ -105,7 +105,7 @@ class GettingStarted extends StatelessWidget {
                       color: boxColor,
                       splashColor: Colors.blueAccent,
                       padding: EdgeInsets.all(20),
-                      onPressed: () {
+                      onPressed: () async {
                         // update the text for this project
                         project
                             .setGettingStarted(gettingStartedController.text);
@@ -114,6 +114,15 @@ class GettingStarted extends StatelessWidget {
                           'PastKnowledge': gettingStartedController.text,
                           'User': loggedInUser.email,
                         });
+                        final projectReference =
+                            await firestore.collection('Projects').add({
+                          'User': loggedInUser.email,
+                          'GettingStarted': gettingStartedController.text,
+                        });
+                        project
+                            .setFirebaseDocumentId(projectReference.documentID);
+
+                        //firestore.collection()
                         Navigator.push(
                             context,
                             MaterialPageRoute(
