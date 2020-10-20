@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -15,6 +17,8 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Defining extends StatelessWidget {
+  final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
   Project project;
 
   final defining1Controller = TextEditingController();
@@ -160,6 +164,14 @@ class Defining extends StatelessWidget {
                             // updating the project data
                             project.setDefining1(defining1Controller.text);
                             project.setDefining2(defining2Controller.text);
+
+                            firestore
+                                .collection("Projects")
+                                .document(project.getFirebaseDocumentId())
+                                .setData({
+                              'defining1': project.getDefining1(),
+                              'defining2': project.getDefining2(),
+                            }, merge: true);
                             if (project.getStage() < 2) {
                               project.setStage(2);
                             }

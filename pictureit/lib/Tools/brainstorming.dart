@@ -4,6 +4,8 @@ import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Tools/voting.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -17,6 +19,8 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Brainstorming extends StatelessWidget {
+  final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
   Project project;
 
   // Create a text controller and use it to retrieve the current value of the TextField.
@@ -95,7 +99,7 @@ class Brainstorming extends StatelessWidget {
                           color: boxColor,
                           splashColor: Colors.blueAccent,
                           padding: EdgeInsets.all(20),
-                          onPressed: () {
+                          onPressed: () async {
                             // for moving the text forward
                             String ideas = brainstormingController.text;
                             List<Idea> ideaList = ideasList(ideas);
@@ -103,6 +107,25 @@ class Brainstorming extends StatelessWidget {
                             project
                                 .setBrainstorming(brainstormingController.text);
                             project.setIdeas(ideaList);
+
+                            // convert the list of ideas into a list of firebase references
+                            List<String> ideaIds = new List<String>();
+                            for (int i = 0; i < ideaList.length; i++) {
+                              final ideaReference =
+                                  await firestore.collection('Ideas').add({
+                                'ideaName': ideaList[i].getIdeaName(),
+                                'isChecked': ideaList[i].getChecked(),
+                              });
+                              ideaIds.add(ideaReference.documentID);
+                            }
+                            // add text version of ideas to database & list of ideas
+                            firestore
+                                .collection('Projects')
+                                .document(project.getFirebaseDocumentId())
+                                .setData({
+                              'brainstorming': project.getBrainstorming(),
+                              'ideas': ideaIds,
+                            }, merge: true);
 
                             if (project.getStage() < 3) {
                               project.setStage(3);
