@@ -135,16 +135,14 @@ class Voting1State extends State<Voting1> {
 
                             //
                             List<String> top3Ids = new List<String>();
-                            List<dynamic> ideaIds = new List<dynamic>();
+                            for (Idea idea in votes) {
+                              top3Ids.add(idea.getFirebaseID());
+                            }
                             //stores a list of the document ids of the ideas
                             firestore
-                                .collection('Projects')
+                                .collection("Projects")
                                 .document(project.getFirebaseDocumentId())
-                                .get()
-                                .then((value) => {
-                                      print(value.data['ideas']),
-                                      ideaIds = value.data['ideas']
-                                    });
+                                .setData({'top3': top3Ids}, merge: true);
 
                             Navigator.push(
                                 context,

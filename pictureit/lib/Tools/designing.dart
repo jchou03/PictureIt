@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
-import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/createDesign.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -31,6 +32,8 @@ class Designing extends StatefulWidget {
 }
 
 class DesigningState extends State<Designing> {
+  final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
   Project project;
 
   DesigningState(Project project) {

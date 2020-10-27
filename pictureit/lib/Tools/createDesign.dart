@@ -8,6 +8,11 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Tools/designing.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'package:flutter/services.dart';
+import 'package:bitmap/bitmap.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -31,6 +36,8 @@ class CreateDesign extends StatefulWidget {
 }
 
 class CreateDesignState extends State<CreateDesign> {
+  final auth = FirebaseAuth.instance;
+  final firestore = Firestore.instance;
   Project project;
   List<Design> designs;
 
@@ -44,6 +51,8 @@ class CreateDesignState extends State<CreateDesign> {
 
   // image picker variables
   File image;
+  double imageWidth;
+  double imageHeight;
   final picker = ImagePicker();
 
   Future getImage() async {
@@ -52,6 +61,8 @@ class CreateDesignState extends State<CreateDesign> {
     setState(() {
       if (pickedFile != null) {
         image = File(pickedFile.path);
+        imageWidth = Image.file(image).width;
+        imageHeight = Image.file(image).height;
       }
     });
   }
@@ -102,7 +113,7 @@ class CreateDesignState extends State<CreateDesign> {
                       color: boxColor,
                       splashColor: Colors.blueAccent,
                       padding: EdgeInsets.all(20),
-                      onPressed: () {
+                      onPressed: () async {
                         User testUser = new User(
                             'name',
                             'password123',
@@ -114,6 +125,20 @@ class CreateDesignState extends State<CreateDesign> {
                         // update designs with new design
                         designs.add(design);
                         project.setDesigns(designs);
+
+                        String imageReference =
+                            "assets/images/Screenshot (437).png";
+
+                        // convert the design image to a Uint8list to convert into a bitmap to add into cloud firestore
+                        ByteData imageBytes = await rootBundle.load(image.path);
+                        List<int> values = imageBytes.buffer.asUint8List();
+
+                        Bitmap bitmap = await Bitmap.fromHeadless(
+                            imageWidth.round(), imageHeight.round(), values);
+
+                        firestore.collection("Images").add({});
+
+                        firestore.collection('Designs').add({});
 
                         Navigator.push(
                             context,

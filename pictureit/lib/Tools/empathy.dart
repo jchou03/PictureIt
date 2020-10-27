@@ -171,17 +171,19 @@ class Empathy extends StatelessWidget {
                             project.setEmpathy1(empathy1Controller.text);
                             project.setEmpathy2(empathy2Controller.text);
 
+                            if (project.getStage() < 1) {
+                              project.setStage(1);
+                            }
+
                             firestore
                                 .collection('Projects')
                                 .document(project.getFirebaseDocumentId())
                                 .setData({
+                              'Stage': project.getStage(),
                               'empathy1': empathy1Controller.text,
                               'empathy2': empathy2Controller.text,
                             }, merge: true);
 
-                            if (project.getStage() < 1) {
-                              project.setStage(1);
-                            }
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

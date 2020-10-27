@@ -108,6 +108,10 @@ class Brainstorming extends StatelessWidget {
                                 .setBrainstorming(brainstormingController.text);
                             project.setIdeas(ideaList);
 
+                            if (project.getStage() < 3) {
+                              project.setStage(3);
+                            }
+
                             // convert the list of ideas into a list of firebase references
                             List<String> ideaIds = new List<String>();
                             for (int i = 0; i < ideaList.length; i++) {
@@ -117,19 +121,18 @@ class Brainstorming extends StatelessWidget {
                                 'isChecked': ideaList[i].getChecked(),
                               });
                               ideaIds.add(ideaReference.documentID);
+                              ideaList[i]
+                                  .setFirebaseID(ideaReference.documentID);
                             }
                             // add text version of ideas to database & list of ideas
                             firestore
                                 .collection('Projects')
                                 .document(project.getFirebaseDocumentId())
                                 .setData({
+                              'Stage': project.getStage(),
                               'brainstorming': project.getBrainstorming(),
                               'ideas': ideaIds,
                             }, merge: true);
-
-                            if (project.getStage() < 3) {
-                              project.setStage(3);
-                            }
 
                             Navigator.push(
                                 context,
