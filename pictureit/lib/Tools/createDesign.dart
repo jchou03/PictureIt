@@ -38,6 +38,7 @@ class CreateDesign extends StatefulWidget {
 class CreateDesignState extends State<CreateDesign> {
   final auth = FirebaseAuth.instance;
   final firestore = Firestore.instance;
+  FirebaseUser loggedInUser;
   Project project;
   List<Design> designs;
 
@@ -65,6 +66,19 @@ class CreateDesignState extends State<CreateDesign> {
         imageHeight = Image.file(image).height;
       }
     });
+  }
+
+  void getCurrentUser() async {
+    try {
+      final firebaseUser = await auth.currentUser();
+      if (firebaseUser != null) {
+        loggedInUser = firebaseUser;
+        print("in createDesign and the logged in user's email is: " +
+            loggedInUser.email);
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -136,9 +150,19 @@ class CreateDesignState extends State<CreateDesign> {
                         Bitmap bitmap = await Bitmap.fromHeadless(
                             imageWidth.round(), imageHeight.round(), values);
 
-                        firestore.collection("Images").add({});
+                        Future imageBitmap =
+                            firestore.collection("Images").add({
+                          'bitmap': bitmap,
+                        });
 
-                        firestore.collection('Designs').add({});
+                        getCurrentUser();
+
+                        firestore.collection('Designs').add({
+                          'description': myController.text,
+                          'image': imageBitmap,
+                          'user': loggedInUser,
+                          'comments': comments
+                        });
 
                         Navigator.push(
                             context,
