@@ -144,6 +144,7 @@ class Voting2State extends State<Voting2> {
                               project.setStage(4);
                             }
 
+                            // updating the project with the correct stage and top vote
                             firestore
                                 .collection("Projects")
                                 .document(project.getFirebaseDocumentId())

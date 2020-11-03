@@ -156,13 +156,36 @@ class CreateDesignState extends State<CreateDesign> {
                         });
 
                         getCurrentUser();
-
-                        firestore.collection('Designs').add({
-                          'description': myController.text,
+                        // creating a new design in the Cloud Firestore to link to the project
+                        Future designReference =
+                            firestore.collection('Designs').add({
+                          'title': myController.text,
                           'image': imageBitmap,
                           'user': loggedInUser,
                           'comments': comments
                         });
+
+                        // get the designs already in the project, and add to the list
+                        List<Future> designReferences = new List<Future>();
+
+                        // get the list of current designs if they exist
+                        firestore
+                            .collection('Projects')
+                            .document(project.getFirebaseDocumentId())
+                            .get()
+                            .then((value) {
+                          if (value.data.containsKey('designs')) {
+                            designReferences = value.data['designs'];
+                          }
+                        });
+                        // add the new deisng reference to the list of other design references
+                        designReferences.add(designReference);
+                        firestore
+                            .collection('Projects')
+                            .document(project.getFirebaseDocumentId())
+                            .setData({
+                          'designs': designReferences,
+                        }, merge: true);
 
                         Navigator.push(
                             context,

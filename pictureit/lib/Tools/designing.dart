@@ -40,6 +40,35 @@ class DesigningState extends State<Designing> {
     this.project = project;
   }
 
+  List<Widget> displayDesigns() {
+    // variable to store the designReferences of the different designs
+    List<String> designReferences = new List<String>();
+    // get the different design references
+    firestore
+        .collection('Projects')
+        .document(project.getFirebaseDocumentId())
+        .get()
+        .then((value) => designReferences = value.data['designs']);
+    List<Design> designs = project.getDesigns();
+
+    for (String designReference in designReferences) {
+      Future documentReference = firestore
+          .collection('Projects')
+          .document(project.getFirebaseDocumentId())
+          .get();
+      Future title =
+          documentReference.then((value) => value.data['designs']['title']);
+      Future imageBitMap =
+          documentReference.then((value) => value.data['designs']['image']);
+      Future user =
+          documentReference.then((value) => value.data['designs']['user']);
+      Future comments =
+          documentReference.then((value) => value.data['designs']['comments']);
+      // do stuff to convert the future references to the proper data types to store
+      //designs.add(new Design(title, convertedImage, user, comments));
+    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
