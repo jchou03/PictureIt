@@ -19,6 +19,7 @@ import 'Comments/HomePage.dart';
 import 'SignUp/LogIn/logIn.dart';
 import 'SignUp/LogIn/signUp.dart';
 import 'Comments/Test.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 // variable setup for the app
 // color setups
@@ -58,8 +59,14 @@ class MyApp extends StatelessWidget {
   // test of the designing & feedback page
   List<Design> designs = [];
 
+  // stuff for initializing Firebase login
+  final auth = FirebaseAuth.instance;
+  // final loginAccount = await auth.signInWithEmailAndPassword(
+  // email: "davedave@gmail.com", password: "password123");
+
   // test input project
-  /*Project testProject = new Project.specific(
+  Project testProject = new Project.specific(
+      'BYZbY0hEFZFYmssIZgrz',
       'test test',
       'empathy 1 test',
       'empathy 2 test',
@@ -75,7 +82,7 @@ class MyApp extends StatelessWidget {
       2,
       null,
       'Samtrans Busses',
-      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');*/
+      'SamTrans bus 260 has had very few passangers for the last 2 months, yet the bus is still running');
   // test user
   User testUser = createUser(true);
 
@@ -97,7 +104,7 @@ class MyApp extends StatelessWidget {
 
         //home: HomePage()
         //home: SignUp()
-        home: LogIn()
+        home: Designing(testProject)
         //home: CreateProject(testUser)
         //
         );
@@ -197,43 +204,4 @@ List<Idea> ideasList(String textInput) {
     ideaObjects.add(new Idea(ideaArray[i].toString()));
   }
   return ideaObjects;
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _likeCounter = 0;
-
-  void _incrementLikeCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _likeCounter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called
-    return Scaffold();
-  }
 }

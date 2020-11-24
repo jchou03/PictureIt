@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' as Io;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/services.dart';
 import 'package:bitmap/bitmap.dart';
+
+import 'dart:async';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -42,6 +44,9 @@ class CreateDesignState extends State<CreateDesign> {
   Project project;
   List<Design> designs;
 
+  // completer for stacktraces
+  Completer<String> myCompleter = new Completer();
+
   CreateDesignState(Project project) {
     this.project = project;
     designs = project.getDesigns();
@@ -51,21 +56,26 @@ class CreateDesignState extends State<CreateDesign> {
   final myController = TextEditingController();
 
   // image picker variables
-  File image;
+  Io.File image;
   double imageWidth;
   double imageHeight;
   final picker = ImagePicker();
+  bool finishedPicking = true;
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
       if (pickedFile != null) {
-        image = File(pickedFile.path);
+        image = Io.File(pickedFile.path);
+        print("image is: " + image.toString());
         imageWidth = Image.file(image).width;
+
         imageHeight = Image.file(image).height;
       }
     });
+
+    finishedPicking = true;
   }
 
   void getCurrentUser() async {
@@ -102,7 +112,10 @@ class CreateDesignState extends State<CreateDesign> {
               RaisedButton(
                   child: Text('Pick Image from Phone'),
                   onPressed: () {
-                    getImage();
+                    if (finishedPicking) {
+                      finishedPicking = false;
+                      getImage();
+                    }
                   }),
               // text box for title of prototype
               Container(
@@ -137,57 +150,83 @@ class CreateDesignState extends State<CreateDesign> {
                         Design design = new Design(
                             myController.text, image.path, testUser, comments);
                         // update designs with new design
-                        designs.add(design);
-                        project.setDesigns(designs);
+                        try {
+                          designs.add(design);
+                          project.setDesigns(designs);
 
-                        String imageReference =
-                            "assets/images/Screenshot (437).png";
+                          String imageReference = image.path;
+                          print("the imageReference variable is equal to: " +
+                              imageReference);
 
-                        // convert the design image to a Uint8list to convert into a bitmap to add into cloud firestore
-                        ByteData imageBytes = await rootBundle.load(image.path);
-                        List<int> values = imageBytes.buffer.asUint8List();
+                          // convert the design image to a Uint8list to convert into a bitmap to add into cloud firestore
+                          List<int> values =
+                              await Io.File(imageReference).readAsBytes();
 
-                        Bitmap bitmap = await Bitmap.fromHeadless(
-                            imageWidth.round(), imageHeight.round(), values);
+                          print("made it past byte conversion");
 
-                        Future imageBitmap =
-                            firestore.collection("Images").add({
-                          'bitmap': bitmap,
-                        });
+                          print("image width is: " +
+                              Image.file(Io.File(imageReference))
+                                  .width
+                                  .toString());
 
-                        getCurrentUser();
-                        // creating a new design in the Cloud Firestore to link to the project
-                        Future designReference =
-                            firestore.collection('Designs').add({
-                          'title': myController.text,
-                          'image': imageBitmap,
-                          'user': loggedInUser,
-                          'comments': comments
-                        });
+                          print(
+                              "made it past Image.File(Io.File(imageReference)).width.toString()");
+                          // image width is: null
+                          // it can get the image from the file without issue, but it has a problem when trying to get the width of the image.
+                          Bitmap bitmap = Bitmap.fromHeadless(
+                              Image.file(Io.File(imageReference)).width.toInt(),
+                              // error where the width of the image is null causing the program to crash
+                              // which is weird because the image variable is not equal to null because it displays
+                              Image.file(Io.File(imageReference))
+                                  .height
+                                  .toInt(),
+                              values);
 
-                        // get the designs already in the project, and add to the list
-                        List<Future> designReferences = new List<Future>();
+                          Future imageBitmap =
+                              firestore.collection("Images").add({
+                            'bitmap': bitmap,
+                          });
+                          /* Notice
+                          This code hopefully uploads a bitmap to the cloud firestore
+                        */
 
-                        // get the list of current designs if they exist
-                        firestore
-                            .collection('Projects')
-                            .document(project.getFirebaseDocumentId())
-                            .get()
-                            .then((value) {
-                          if (value.data.containsKey('designs')) {
-                            designReferences = value.data['designs'];
-                          }
-                        });
-                        // add the new deisng reference to the list of other design references
-                        designReferences.add(designReference);
-                        firestore
-                            .collection('Projects')
-                            .document(project.getFirebaseDocumentId())
-                            .setData({
-                          'designs': designReferences,
-                        }, merge: true);
+                          getCurrentUser();
+                          // creating a new design in the Cloud Firestore to link to the project
+                          Future designReference =
+                              firestore.collection('Designs').add({
+                            'title': myController.text,
+                            'image': imageBitmap,
+                            'user': loggedInUser,
+                            'comments': comments
+                          });
 
-                        Navigator.push(
+                          // get the designs already in the project, and add to the list
+                          List<Future> designReferences = new List<Future>();
+
+                          // get the list of current designs if they exist
+                          firestore
+                              .collection('Projects')
+                              .document(project.getFirebaseDocumentId())
+                              .get()
+                              .then((value) {
+                            if (value.data.containsKey('designs')) {
+                              designReferences = value.data['designs'];
+                            }
+                          });
+                          // add the new deisng reference to the list of other design references
+                          designReferences.add(designReference);
+                          firestore
+                              .collection('Projects')
+                              .document(project.getFirebaseDocumentId())
+                              .setData({
+                            'designs': designReferences,
+                          }, merge: true);
+                        } catch (e, stacktrace) {
+                          print("in catch");
+                          myCompleter.completeError(e, stacktrace);
+                        }
+
+                        await Navigator.push(
                             context,
                             // where the button will be leading to the next page
                             MaterialPageRoute(
