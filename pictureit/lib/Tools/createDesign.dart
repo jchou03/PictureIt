@@ -256,6 +256,7 @@ class CreateDesignState extends State<CreateDesign> {
     // currently crashing with the error
     // E/flutter (12706): [ERROR:flutter/lib/ui/ui_dart_state.cc(177)] Unhandled Exception: Invalid argument: Instance of 'Bitmap'
     // issue with bitmap creation that makes it invalid
+    // the type Bitmap might be an invalid argument to pass in
     Future imageBitmap = firestore.collection("Images").add({
       'bitmap': bitmap,
     });
