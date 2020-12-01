@@ -141,6 +141,15 @@ class CreateDesignState extends State<CreateDesign> {
                       splashColor: Colors.blueAccent,
                       padding: EdgeInsets.all(20),
                       onPressed: () async {
+                        // variables for keeping the chosen image's width and height
+                        print("image is: " + image.toString());
+                        print("Image.file(image) is: " +
+                            Image.file(image).toString());
+                        var decodedImage =
+                            await decodeImageFromList(image.readAsBytesSync());
+
+                        int imageWidth = decodedImage.width;
+                        int imageHeight = decodedImage.height;
                         User testUser = new User(
                             'name',
                             'password123',
@@ -154,41 +163,11 @@ class CreateDesignState extends State<CreateDesign> {
                           designs.add(design);
                           project.setDesigns(designs);
 
-                          String imageReference = image.path;
-                          print("the imageReference variable is equal to: " +
-                              imageReference);
-
-                          // convert the design image to a Uint8list to convert into a bitmap to add into cloud firestore
-                          List<int> values =
-                              await Io.File(imageReference).readAsBytes();
-
-                          print("made it past byte conversion");
-
-                          print("image width is: " +
-                              Image.file(Io.File(imageReference))
-                                  .width
-                                  .toString());
-
-                          print(
-                              "made it past Image.File(Io.File(imageReference)).width.toString()");
-                          // image width is: null
-                          // it can get the image from the file without issue, but it has a problem when trying to get the width of the image.
-                          Bitmap bitmap = Bitmap.fromHeadless(
-                              Image.file(Io.File(imageReference)).width.toInt(),
-                              // error where the width of the image is null causing the program to crash
-                              // which is weird because the image variable is not equal to null because it displays
-                              Image.file(Io.File(imageReference))
-                                  .height
-                                  .toInt(),
-                              values);
-
-                          Future imageBitmap =
-                              firestore.collection("Images").add({
-                            'bitmap': bitmap,
-                          });
                           /* Notice
                           This code hopefully uploads a bitmap to the cloud firestore
                         */
+                          Future imageBitmap = await createImageBitmap(
+                              imageWidth, imageHeight, image);
 
                           getCurrentUser();
                           // creating a new design in the Cloud Firestore to link to the project
@@ -226,11 +205,11 @@ class CreateDesignState extends State<CreateDesign> {
                           myCompleter.completeError(e, stacktrace);
                         }
 
-                        await Navigator.push(
-                            context,
-                            // where the button will be leading to the next page
-                            MaterialPageRoute(
-                                builder: (context) => Designing(project)));
+                        // await Navigator.push(
+                        //     context,
+                        //     // where the button will be leading to the next page
+                        //     MaterialPageRoute(
+                        //         builder: (context) => Designing(project)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -247,5 +226,39 @@ class CreateDesignState extends State<CreateDesign> {
                         ],
                       )))
             ])));
+  }
+
+  Future createImageBitmap(
+      int imageWidth, int imageHeight, Io.File image) async {
+    String imageReference = image.path;
+    print("the imageReference variable is equal to: " + imageReference);
+
+    print("Image width is: " +
+        imageWidth.toString() +
+        " and Image height is: " +
+        imageHeight.toString());
+
+    // convert the design image to a Uint8list to convert into a bitmap to add into cloud firestore
+    List<int> values = await Io.File(imageReference).readAsBytes();
+
+    print("made it past byte conversion");
+
+    print("image width is: " +
+        Image.file(Io.File(imageReference)).width.toString());
+
+    print("made it past Image.File(Io.File(imageReference)).width.toString()");
+
+    //
+    Bitmap bitmap = Bitmap.fromHeadful(imageWidth, imageHeight, values);
+
+    print("Created bitmap, bitmap is: " + bitmap.content.toString());
+
+    // currently crashing with the error
+    // E/flutter (12706): [ERROR:flutter/lib/ui/ui_dart_state.cc(177)] Unhandled Exception: Invalid argument: Instance of 'Bitmap'
+    // issue with bitmap creation that makes it invalid
+    Future imageBitmap = firestore.collection("Images").add({
+      'bitmap': bitmap,
+    });
+    return imageBitmap;
   }
 }
