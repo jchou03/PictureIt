@@ -19,7 +19,7 @@ import 'Comments/HomePage.dart';
 import 'SignUp/LogIn/logIn.dart';
 import 'SignUp/LogIn/signUp.dart';
 import 'Comments/Test.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 // variable setup for the app
 // color setups
@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
   List<Design> designs = [];
 
   // stuff for initializing Firebase login
-  final auth = FirebaseAuth.instance;
-  // final loginAccount = await auth.signInWithEmailAndPassword(
+  // final authInstance = auth.FirebaseAuth.instance;
+  // final loginAccount = await authInstance.signInWithEmailAndPassword(
   // email: "davedave@gmail.com", password: "password123");
 
   // test input project

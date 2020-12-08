@@ -5,7 +5,7 @@ import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/SignUp/LogIn/logIn.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Data/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 // color setups
@@ -26,7 +26,7 @@ class SignUp extends StatefulWidget {
 
 class SignUpState extends State<SignUp> {
   User user;
-  final auth = FirebaseAuth.instance;
+  final authInstance = auth.FirebaseAuth.instance;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -169,7 +169,7 @@ class SignUpState extends State<SignUp> {
 
                                       // implemented registration functionality
                                       try {
-                                        final newUser = await auth
+                                        final newUser = await authInstance
                                             .createUserWithEmailAndPassword(
                                                 email: emailController.text,
                                                 password:

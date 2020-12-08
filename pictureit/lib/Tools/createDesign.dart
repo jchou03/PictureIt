@@ -11,7 +11,7 @@ import 'package:pictureit/Tools/designing.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'package:flutter/services.dart';
+import 'package:pictureit/Tools/Uploader.dart';
 import 'package:bitmap/bitmap.dart';
 
 import 'dart:async';
@@ -148,8 +148,8 @@ class CreateDesignState extends State<CreateDesign> {
                         var decodedImage =
                             await decodeImageFromList(image.readAsBytesSync());
 
-                        int imageWidth = decodedImage.width;
-                        int imageHeight = decodedImage.height;
+                        // int imageWidth = decodedImage.width;
+                        // int imageHeight = decodedImage.height;
                         User testUser = new User(
                             'name',
                             'password123',
@@ -158,58 +158,62 @@ class CreateDesignState extends State<CreateDesign> {
                         List<Comment> comments = [];
                         Design design = new Design(
                             myController.text, image.path, testUser, comments);
+                        designs.add(design);
+                        project.setDesigns(designs);
+
+                        Uploader uploadImage = Uploader(file: image);
+
                         // update designs with new design
-                        try {
-                          designs.add(design);
-                          project.setDesigns(designs);
+                        // try {
+                        //
 
-                          /* Notice
-                          This code hopefully uploads a bitmap to the cloud firestore
-                        */
-                          Future imageBitmap = await createImageBitmap(
-                              imageWidth, imageHeight, image);
+                        //   /* Notice
+                        //   This code hopefully uploads a bitmap to the cloud firestore
+                        // */
+                        //   Future imageBitmap = await createImageBitmap(
+                        //       imageWidth, imageHeight, image);
 
-                          getCurrentUser();
-                          // creating a new design in the Cloud Firestore to link to the project
-                          Future designReference =
-                              firestore.collection('Designs').add({
-                            'title': myController.text,
-                            'image': imageBitmap,
-                            'user': loggedInUser,
-                            'comments': comments
-                          });
+                        //   getCurrentUser();
+                        //   // creating a new design in the Cloud Firestore to link to the project
+                        //   Future designReference =
+                        //       firestore.collection('Designs').add({
+                        //     'title': myController.text,
+                        //     'image': imageBitmap,
+                        //     'user': loggedInUser,
+                        //     'comments': comments
+                        //   });
 
-                          // get the designs already in the project, and add to the list
-                          List<Future> designReferences = new List<Future>();
+                        //   // get the designs already in the project, and add to the list
+                        //   List<Future> designReferences = new List<Future>();
 
-                          // get the list of current designs if they exist
-                          firestore
-                              .collection('Projects')
-                              .document(project.getFirebaseDocumentId())
-                              .get()
-                              .then((value) {
-                            if (value.data.containsKey('designs')) {
-                              designReferences = value.data['designs'];
-                            }
-                          });
-                          // add the new deisng reference to the list of other design references
-                          designReferences.add(designReference);
-                          firestore
-                              .collection('Projects')
-                              .document(project.getFirebaseDocumentId())
-                              .setData({
-                            'designs': designReferences,
-                          }, merge: true);
-                        } catch (e, stacktrace) {
-                          print("in catch");
-                          myCompleter.completeError(e, stacktrace);
-                        }
+                        //   // get the list of current designs if they exist
+                        //   firestore
+                        //       .collection('Projects')
+                        //       .document(project.getFirebaseDocumentId())
+                        //       .get()
+                        //       .then((value) {
+                        //     if (value.data.containsKey('designs')) {
+                        //       designReferences = value.data['designs'];
+                        //     }
+                        //   });
+                        //   // add the new deisng reference to the list of other design references
+                        //   designReferences.add(designReference);
+                        //   firestore
+                        //       .collection('Projects')
+                        //       .document(project.getFirebaseDocumentId())
+                        //       .setData({
+                        //     'designs': designReferences,
+                        //   }, merge: true);
+                        // } catch (e, stacktrace) {
+                        //   print("in catch");
+                        //   myCompleter.completeError(e, stacktrace);
+                        // }
 
-                        // await Navigator.push(
-                        //     context,
-                        //     // where the button will be leading to the next page
-                        //     MaterialPageRoute(
-                        //         builder: (context) => Designing(project)));
+                        await Navigator.push(
+                            context,
+                            // where the button will be leading to the next page
+                            MaterialPageRoute(
+                                builder: (context) => Designing(project)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
