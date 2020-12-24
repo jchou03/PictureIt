@@ -6,7 +6,7 @@ import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/designing.dart';
 import 'package:pictureit/Tools/voting.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
@@ -35,8 +35,8 @@ class Voting2 extends StatefulWidget {
 }
 
 class Voting2State extends State<Voting2> {
-  final auth = FirebaseAuth.instance;
-  final firestore = Firestore.instance;
+  final authInstance = auth.FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
   Project project;
   // list of the vote, using type list in order to work around a technial issue of not being able to set the instance variable through the method
   // also what will be passed onto the next page
@@ -151,7 +151,7 @@ class Voting2State extends State<Voting2> {
                                 .setData({
                               'Stage': project.getStage(),
                               'top': top[0].getFirebaseID()
-                            }, merge: true);
+                            }, SetOptions(merge: true));
 
                             Navigator.push(
                                 context,

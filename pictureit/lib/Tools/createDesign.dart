@@ -8,7 +8,7 @@ import 'package:pictureit/Data/design.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Data/user.dart';
 import 'package:pictureit/Tools/designing.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:flutter/services.dart';
@@ -38,9 +38,9 @@ class CreateDesign extends StatefulWidget {
 }
 
 class CreateDesignState extends State<CreateDesign> {
-  final auth = FirebaseAuth.instance;
-  final firestore = Firestore.instance;
-  FirebaseUser loggedInUser;
+  final authInstance = auth.FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  auth.User loggedInUser;
   Project project;
   List<Design> designs;
 
@@ -80,7 +80,7 @@ class CreateDesignState extends State<CreateDesign> {
 
   void getCurrentUser() async {
     try {
-      final firebaseUser = await auth.currentUser();
+      final firebaseUser = await authInstance.currentUser;
       if (firebaseUser != null) {
         loggedInUser = firebaseUser;
         print("in createDesign and the logged in user's email is: " +
@@ -185,21 +185,21 @@ class CreateDesignState extends State<CreateDesign> {
                           // get the list of current designs if they exist
                           firestore
                               .collection('Projects')
-                              .document(project.getFirebaseDocumentId())
+                              .doc(project.getFirebaseDocumentId())
                               .get()
                               .then((value) {
-                            if (value.data.containsKey('designs')) {
-                              designReferences = value.data['designs'];
+                            if (value.get('designs')) {
+                              designReferences = value.get('designs');
                             }
                           });
                           // add the new deisng reference to the list of other design references
                           designReferences.add(designReference);
                           firestore
                               .collection('Projects')
-                              .document(project.getFirebaseDocumentId())
-                              .setData({
+                              .doc(project.getFirebaseDocumentId())
+                              .set({
                             'designs': designReferences,
-                          }, merge: true);
+                          }, SetOptions(merge: true));
                         } catch (e, stacktrace) {
                           print("in catch");
                           myCompleter.completeError(e, stacktrace);

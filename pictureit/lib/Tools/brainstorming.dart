@@ -4,7 +4,7 @@ import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Tools/voting.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
@@ -19,8 +19,8 @@ const globalMargin = 15.0;
 const borderRadius = 10.0;
 
 class Brainstorming extends StatelessWidget {
-  final auth = FirebaseAuth.instance;
-  final firestore = Firestore.instance;
+  final authInstance = auth.FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
   Project project;
 
   // Create a text controller and use it to retrieve the current value of the TextField.
@@ -132,7 +132,7 @@ class Brainstorming extends StatelessWidget {
                               'Stage': project.getStage(),
                               'brainstorming': project.getBrainstorming(),
                               'ideas': ideaIds,
-                            }, merge: true);
+                            }, SetOptions(merge: true));
 
                             Navigator.push(
                                 context,

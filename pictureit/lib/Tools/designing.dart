@@ -46,15 +46,15 @@ class DesigningState extends State<Designing> {
     // get the different design references
     firestore
         .collection('Projects')
-        .document(project.getFirebaseDocumentId())
+        .doc(project.getFirebaseDocumentId())
         .get()
-        .then((value) => designReferences = value.data['designs']);
+        .then((value) => designReferences = value.get('designs'));
     List<Design> designs = project.getDesigns();
 
     for (String designReference in designReferences) {
       Future documentReference = firestore
           .collection('Projects')
-          .document(project.getFirebaseDocumentId())
+          .doc(project.getFirebaseDocumentId())
           .get();
       Future title =
           documentReference.then((value) => value.data['designs']['title']);

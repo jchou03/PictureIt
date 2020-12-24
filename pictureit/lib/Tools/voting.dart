@@ -4,7 +4,7 @@ import 'package:pictureit/Data/idea.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/brainstorming.dart';
 import 'package:pictureit/Tools/voting2.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
@@ -33,8 +33,8 @@ class Voting1 extends StatefulWidget {
 }
 
 class Voting1State extends State<Voting1> {
-  final auth = FirebaseAuth.instance;
-  final firestore = Firestore.instance;
+  final authInstance = auth.FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
   Project project;
   // list that holds the top 3 votes that will go into Voting2
   List<Idea> votes = [];
@@ -142,7 +142,8 @@ class Voting1State extends State<Voting1> {
                             firestore
                                 .collection("Projects")
                                 .document(project.getFirebaseDocumentId())
-                                .setData({'top3': top3Ids}, merge: true);
+                                .setData(
+                                    {'top3': top3Ids}, SetOptions(merge: true));
 
                             Navigator.push(
                                 context,

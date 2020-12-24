@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/Tools/empathy.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // color setups
@@ -20,16 +20,16 @@ const borderRadius = 10.0;
 
 // class for the getting started page for the problem solving tools
 class GettingStarted extends StatelessWidget {
-  final auth = FirebaseAuth.instance;
-  final firestore = Firestore.instance;
-  FirebaseUser loggedInUser;
+  final authInstance = auth.FirebaseAuth.instance;
+  final firestore = FirebaseFirestore.instance;
+  auth.User loggedInUser;
 
   // no initstate method because it is a stateless widget (getCurrentUser() is called in build())
 
   void getCurrentUser() async {
     // check the login of the firebase user
     try {
-      final firebaseUser = await auth.currentUser();
+      final firebaseUser = await authInstance.currentUser;
       if (firebaseUser != null) {
         loggedInUser = firebaseUser;
         print("in GettingStarted and the logged in user's email is: " +
