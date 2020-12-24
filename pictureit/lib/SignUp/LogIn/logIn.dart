@@ -5,7 +5,7 @@ import 'package:pictureit/Data/project.dart';
 import 'package:pictureit/MiscPages/projectHome.dart';
 import 'package:pictureit/Tools/gettingStarted.dart';
 import 'package:pictureit/Data/user.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_auth/firebase_auth.dart';
 
 // color setups
 const backgroundColor = Color(0xFFE7FBF4);
@@ -34,7 +34,7 @@ class LogIn extends StatefulWidget {
 
 class LogInState extends State<LogIn> {
   User user;
-  final authInstance = auth.FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
   String email;
   String password;
 
@@ -149,7 +149,7 @@ class LogInState extends State<LogIn> {
 
                                   try {
                                     final userLogIn =
-                                        await authInstance.signInWithEmailAndPassword(
+                                        await auth.signInWithEmailAndPassword(
                                             email: email, password: password);
                                     if (user != null) {
                                       Navigator.push(
